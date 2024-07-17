@@ -1,4 +1,4 @@
-import { createStaff, deleteStaff, getAllStaff, getStaffById, updateStaff } from './../controllers/staffs.controllers';
+import { createStaff, deleteStaff, getAllStaff, getStaffById, updateStaff } from '../controllers/staffs.controller';
 import express from "express";
 
 const router = express.Router();

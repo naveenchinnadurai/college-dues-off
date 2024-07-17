@@ -9,3 +9,14 @@ export const staffs = pgTable("staffs", {
   advisorFor: text("advisor_for"),
   subjectTaking: text("subject_taking").array()
 });
+
+export const students = pgTable("students", {
+  regNo: text("reg_no").primaryKey(),
+  rollNo: text("roll_no").notNull().unique(),
+  name: text("name").notNull(),
+  email: text("email").unique().notNull(),
+  password: text("password").notNull(),
+  parentsNo: text("parents_no").unique().notNull(),
+  dept: text("dept"),
+  year: text("year")
+});

@@ -1,6 +1,6 @@
 {
-  "id": "8f7e73be-97bf-46ab-8f0b-bc438987c98f",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "9da56c17-df89-4097-a3e3-f700c80fb62d",
+  "prevId": "8f7e73be-97bf-46ab-8f0b-bc438987c98f",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -93,21 +93,21 @@
           "primaryKey": false,
           "notNull": true
         },
-        "parents_no": {
-          "name": "parents_no",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
         "password": {
           "name": "password",
           "type": "text",
           "primaryKey": false,
           "notNull": true
         },
+        "parents_no": {
+          "name": "parents_no",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
         "dept": {
           "name": "dept",
-          "type": "text[]",
+          "type": "text",
           "primaryKey": false,
           "notNull": false
         },
