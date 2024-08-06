@@ -1,24 +1,29 @@
+import { Context, Hono } from 'hono';
+import { cors } from 'hono/cors';
 import dotenv from 'dotenv';
-
-import express from 'express';
-import bodyParser from 'body-parser';
-import cors from 'cors';
-
-import staffRoutes from './routes/staff.routes'
-import studentRoutes from './routes/student.routes'
+import staffRoutes from './routes/staff.routes';
+import studentRoutes from './routes/student.routes';
+import { serve } from '@hono/node-server';
 
 dotenv.config();
 
-const app = express();
-const port = process.env.SERVER_PORT || 3000;
+const app = new Hono();
+const PORT = Number(process.env.SERVER_PORT) || 3000;
 
-app.use(bodyParser.json());
-app.use(cors());
+// Apply CORS middleware globally
+app.use('*', cors());
 
-//API endpoint routes for CRUD operations
-app.use('/staffs', staffRoutes) 
-app.use('/students', studentRoutes) 
+// Root endpoint
+app.get('/', (c: Context) => {
+  return c.json({ greet: "Hello World" });
+});
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+// API endpoint routes for CRUD operations
+app.route('/staffs', staffRoutes);
+app.route('/students', studentRoutes);
+
+// Create and start the server
+serve({
+  fetch: app.fetch,
+  port: PORT,
 });

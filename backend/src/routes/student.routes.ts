@@ -1,7 +1,7 @@
 import { createStudent, deleteStudent, getAllStudent, getStudentById, updateStudent } from '../controllers/student.controller';
-import express from "express";
+import { Hono } from 'hono';
 
-const router = express.Router();
+const router = new Hono();
 
 router.post("/", createStudent);
 router.get("/", getAllStudent);
