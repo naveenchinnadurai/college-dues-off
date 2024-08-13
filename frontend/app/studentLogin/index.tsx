@@ -40,7 +40,7 @@ const Index = () => {
         <SafeAreaView className='bg-white flex-1 overflow-hidden items-center'>
             <StatusBar backgroundColor="#fff" barStyle="dark-content" />
             <View className='w-full h-4/6'>
-                <Image source={floating[0].img} className={`absolute top-60 left-10 h-10 w-10`} />
+                <Image source={floating[0].img} className={`absolute top-60 left-12 h-10 w-10`} />
                 <Image source={floating[1].img} className={`absolute top-36 left-28 h-10 w-10`} />
                 <Image source={floating[2].img} className={`absolute top-8 right-56 h-10 w-10`} />
                 <Image source={floating[3].img} className={`absolute top-48 right-10 h-10 w-10`} />
