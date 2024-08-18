@@ -16,23 +16,23 @@ const Index = () => {
     const [isChecked, setIsChecked] = useState(false);
     const floating = [
         {
-            img: require('../../assets/images/floatings/bookImg1.png'),
+            img: require('../../../assets/images/floatings/bookImg1.png'),
             styles: ""
         },
         {
-            img: require('../../assets/images/floatings/bookImg2.png'),
+            img: require('../../../assets/images/floatings/bookImg2.png'),
             styles: ""
         },
         {
-            img: require('../../assets/images/floatings/bookImg3.png'),
+            img: require('../../../assets/images/floatings/bookImg3.png'),
             styles: ""
         },
         {
-            img: require('../../assets/images/floatings/bookImg4.png'),
+            img: require('../../../assets/images/floatings/bookImg4.png'),
             styles: ""
         },
         {
-            img: require('../../assets/images/floatings/bookImg5.png'),
+            img: require('../../../assets/images/floatings/bookImg5.png'),
             styles: ""
         }
     ]
@@ -45,7 +45,7 @@ const Index = () => {
                 <Image source={floating[2].img} className={`absolute top-8 right-56 h-10 w-10`} />
                 <Image source={floating[3].img} className={`absolute top-48 right-10 h-10 w-10`} />
                 <Image source={floating[4].img} className={`absolute top-20 right-24 h-10 w-10`} />
-                <Image source={require('../../assets/images/bgPattern.png')} />
+                <Image source={require('../../../assets/images/bgPattern.png')} />
             </View>
             <View
                 className='bg-white h-4/6 -mt-[68%] shadow-xl rounded-t-full p-5 w-[700px]'
@@ -85,8 +85,8 @@ const Index = () => {
                         </View>
                     </View>
                     <View className='flex space-y-3 w-[300px]'>
-                        <Link href='/onBoarding' className='text-xl text-center bg-[#2A68F1] px-4 py-2 rounded-md text-white'>Login</Link>
-                        <Link href="/" className='px-4 py-2 rounded-md text-xl text-[#2A68F1] text-center'>Back</Link>
+                        <Link href='/onBoarding' className='text-xl text-center bg-primary px-4 py-2 rounded-md text-white'>Login</Link>
+                        <Link href="/" className='px-4 py-2 rounded-md text-xl text-primary text-center'>Back</Link>
                     </View>
                 </View>
             </View>

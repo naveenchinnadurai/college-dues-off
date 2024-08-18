@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { Link, useRouter } from 'expo-router'
-import { useUser } from '../../context/userContext'
-import { StaffOnBoard, StudentOnBoard } from '../../utils/data'
+import { useUser } from '../../../context/userContext'
+import { StaffOnBoard, StudentOnBoard } from '../../../utils/data'
 import Icon from 'react-native-vector-icons/Ionicons'
 
 const Index = () => {
@@ -35,7 +35,7 @@ const Index = () => {
                     </TouchableOpacity>
                 ) : null
             }
-            <Link href="/home" className={`absolute right-5 text-xl font-medium border-b-2 ${flag ? 'text-[#407BFF] border-b-[#407BFF]' : 'text-[#54C15F] border-b-[#54C15F]'}`}>Skip</Link>
+            <Link href="/home" className={`absolute right-5 text-xl font-medium border-b-2 ${flag ? 'text-primary border-b-primary' : 'text-[#54C15F] border-b-[#54C15F]'}`}>Skip</Link>
             <View className='w-full h-2/3 justify-center items-center'>
                 <Image source={Indexs[slide].img} className='w-2/3 h-1/2' />
                 <Text className='text-xl font-medium mt-5 w-5/6 text-center'>{Indexs[slide].text}</Text>
@@ -45,7 +45,7 @@ const Index = () => {
                 <View className={`w-3 h-3 rounded-full ${slide === 1 ? 'bg-gray-600' : 'bg-gray-400'}`}></View>
                 <View className={`w-3 h-3 rounded-full ${slide === 2 ? 'bg-gray-600' : 'bg-gray-400'}`}></View>
             </View>
-            <TouchableOpacity className={`w-5/6 py-3 px-3 rounded-lg items-center ${flag ? 'bg-[#2A68F1]' : 'bg-[#54C15F]'}`} onPress={nextSlide}>
+            <TouchableOpacity className={`w-5/6 py-3 px-3 rounded-lg items-center ${flag ? 'bg-primary' : 'bg-[#54C15F]'}`} onPress={nextSlide}>
                 <Text className='text-xl text-white'>Next</Text>
             </TouchableOpacity>
         </View>

@@ -19,7 +19,7 @@ export default function AppLayout() {
                     title: 'Home',
                     headerShown: false,
                     tabBarIcon: () => (
-                        <Image source={require('../../assets/images/devAssets/activeIcons/home.png')} className='h-7 w-7' />
+                        <Image source={require('../../../assets/images/devAssets/activeIcons/home.png')} className='h-7 w-7' />
                     ),
                 }}
             />
@@ -29,7 +29,7 @@ export default function AppLayout() {
                     title: 'Marks',
                     headerShown: false,
                     tabBarIcon: () => (
-                        <Image source={require('../../assets/images/devAssets/inactiveIcons/marks.png')} className='h-7 w-7' />
+                        <Image source={require('../../../assets/images/devAssets/inactiveIcons/marks.png')} className='h-7 w-7' />
                     ),
                 }}
             />
@@ -39,7 +39,7 @@ export default function AppLayout() {
                     title: 'Notification',
                     headerShown: false,
                     tabBarIcon: () => (
-                        <Image source={require('../../assets/images/devAssets/inactiveIcons/notify.png')} className='h-6 w-6' />
+                        <Image source={require('../../../assets/images/devAssets/inactiveIcons/notify.png')} className='h-6 w-6' />
                     ),
                 }}
             />
@@ -49,7 +49,7 @@ export default function AppLayout() {
                     title: 'Profile',
                     headerShown: false,
                     tabBarIcon: () => (
-                        <Image source={require('../../assets/images/devAssets/inactiveIcons/profile.png')} className='h-6 w-6' />
+                        <Image source={require('../../../assets/images/devAssets/inactiveIcons/profile.png')} className='h-6 w-6' />
                     ),
                 }}
             />

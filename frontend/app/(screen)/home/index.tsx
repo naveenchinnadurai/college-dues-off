@@ -10,7 +10,7 @@ const Index = () => {
         <View className="flex-row items-center justify-between w-full">
           <View className="flex-row items-center">
             <Image
-              source={require('../../assets/images/devAssets/profile.png')}
+              source={require('../../../assets/images/devAssets/profile.png')}
               className="w-16 h-16 rounded-full"
             />
             <View className="ml-4">
@@ -30,7 +30,7 @@ const Index = () => {
                 return (
                   <View className="flex-row py-2 gap-1 bg-gray-300 px-1 h-[180px] w-1/3 rounded-2xl">
                     <Image
-                      source={require('../../assets/images/devAssets/profile1.png')}
+                      source={require('../../../assets/images/devAssets/profile1.png')}
                       className="w-8 h-8 rounded-full"
                     />
                     <View className='flex-col gap-1 justify-center h-8'>
@@ -51,7 +51,7 @@ const Index = () => {
                 <View className="flex-row justify-around items-center p-4 bg-white rounded-lg shadow-md">
                   <View className="flex-row items-center gap-2">
                     <Image
-                      source={require('../../assets/images/devAssets/subImage1.png')}
+                      source={require('../../../assets/images/devAssets/subImage1.png')}
                       className="w-12 h-12 rounded-full"
                     />
                     <View className="">
@@ -59,7 +59,7 @@ const Index = () => {
                       <Text className="text-gray-500 w-2/3">Software & Architecture Design</Text>
                     </View>
                   </View>
-                  <TouchableOpacity className="bg-blue-500 px-5 py-3 rounded-lg">
+                  <TouchableOpacity className="bg-primary px-5 py-3 rounded-lg">
                     <Text className="text-white font-bold">Request</Text>
                   </TouchableOpacity>
                 </View>

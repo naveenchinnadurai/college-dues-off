@@ -17,7 +17,7 @@ const Index = () => {
         <SafeAreaView className='bg-white flex-1 overflow-hidden items-center'>
             <StatusBar backgroundColor="#fff" barStyle="dark-content" />
             <View className='w-full h-4/6'>
-                <Image source={require('../../assets/images/bgPattern.png')} />
+                <Image source={require('../../../assets/images/bgPattern.png')} />
             </View>
             <View
                 className='bg-white h-4/6 -mt-[68%] shadow-xl rounded-t-full p-5 w-[700px]'
