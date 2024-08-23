@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
 import { Tabs } from 'expo-router';
-import { Image, StatusBar } from 'react-native';
+import React from 'react';
+import { Image } from 'react-native';
 
 
 export default function AppLayout() {
@@ -51,6 +51,20 @@ export default function AppLayout() {
                     tabBarIcon: () => (
                         <Image source={require('../../../assets/images/devAssets/inactiveIcons/profile.png')} className='h-6 w-6' />
                     ),
+                }}
+            />
+            <Tabs.Screen
+                name="internalMarks"
+                options={{
+                    headerShown: false,
+                    tabBarButton:()=>null
+                }}
+            />
+            <Tabs.Screen
+                name="request"
+                options={{
+                    headerShown: false,
+                    tabBarButton:()=>null
                 }}
             />
         </Tabs>

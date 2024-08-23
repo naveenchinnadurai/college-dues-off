@@ -2,11 +2,13 @@ import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native'
 import React from 'react'
 import Icon from '@expo/vector-icons/MaterialIcons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from 'expo-router';
 
 const Index = () => {
+  const navigate = useNavigation()
   return (
-    <ScrollView>
-      <SafeAreaView className='flex p-3'>
+    <SafeAreaView className='p-3'>
+      <ScrollView>
         <View className="flex-row items-center justify-between w-full">
           <View className="flex-row items-center">
             <Image
@@ -19,7 +21,7 @@ const Index = () => {
             </View>
           </View>
           <TouchableOpacity>
-            <Icon name="logout" size={35} color="black" />
+            <Icon name="logout" size={30} color="black" />
           </TouchableOpacity>
         </View>
         <View className='flex gap-2 pt-3'>
@@ -46,9 +48,9 @@ const Index = () => {
         <View className='pt-3 flex gap-2'>
           <Text className="text-2xl font-medium">No Due Request</Text>
           {
-            [1, 2, 3, 4, 5].map(() => {
+            [1, 2, 3, 4, 5].map((e, i) => {
               return (
-                <View className="flex-row justify-around items-center p-4 bg-white rounded-lg shadow-md">
+                <View className="flex-row justify-around items-center p-4 bg-white rounded-lg shadow-md" key={i}>
                   <View className="flex-row items-center gap-2">
                     <Image
                       source={require('../../../assets/images/devAssets/subImage1.png')}
@@ -59,7 +61,7 @@ const Index = () => {
                       <Text className="text-gray-500 w-2/3">Software & Architecture Design</Text>
                     </View>
                   </View>
-                  <TouchableOpacity className="bg-primary px-5 py-3 rounded-lg">
+                  <TouchableOpacity className="bg-primary px-5 py-3 rounded-lg" onPress={() => navigate.navigate('request')}>
                     <Text className="text-white font-bold">Request</Text>
                   </TouchableOpacity>
                 </View>
@@ -67,8 +69,8 @@ const Index = () => {
             })
           }
         </View>
-      </SafeAreaView>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 

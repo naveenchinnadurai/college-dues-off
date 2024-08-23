@@ -1,11 +1,11 @@
-import { Link, useRouter } from 'expo-router'
+import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import IconDisplay from 'react-native-vector-icons/FontAwesome6'
 import InternalMarks from './internalMarks'
 const Mark = () => {
-  const router = useRouter();
+  const navigate=useNavigation()
   const images = [
     {
       title: 'I',
@@ -30,12 +30,12 @@ const Mark = () => {
       </View>
       <View className='flex w-full space-y-3 h-full justify-center'>
         {
-          images.map((e) => {
+          images.map((e, i) => {
             return (
-              <TouchableOpacity onPress={() => router.push('\internalMarks')}>
-                <ImageBackground source={e.img} resizeMode='cover' resizeMethod='resize' className='overflow-hidden relative flex justify-center items-center w-full p-2 rounded-lg h-[180px]'>
+              <TouchableOpacity onPress={() => navigate.navigate('internalMarks')} key={i} className='overflow-hidden rounded-xl'>
+                <ImageBackground source={e.img} resizeMode='cover' resizeMethod='resize' className='relative flex justify-center items-center w-full  h-[180px]'>
                   <Text className='text-xl text-white font-medium'>Continuous Internal Assessment-{e.title}</Text>
-                  <View className="absolute bottom-3 flex flex-row px-2 w-full justify-between">
+                  <View className="absolute bottom-3 flex flex-row px-3 w-full justify-between">
                     <Text className='text-lg font-normal text-white'>Date: 07.09.2024</Text>
                     <Text className='text-lg font-normal text-white'>Status: Fail</Text>
                   </View>
@@ -45,7 +45,7 @@ const Mark = () => {
           })
         }
       </View>
-      <InternalMarks/>
+      <InternalMarks />
     </SafeAreaView>
   )
 }
