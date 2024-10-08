@@ -1,5 +1,5 @@
-import { useNavigation } from '@react-navigation/native'
 import React from 'react'
+import { Link, useNavigation, useRouter } from 'expo-router'
 import { ImageBackground, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import IconDisplay from 'react-native-vector-icons/FontAwesome6'
@@ -9,15 +9,15 @@ const Mark = () => {
   const images = [
     {
       title: 'I',
-      img: require('../../../assets/images/devAssets/internalImages/image1.png')
+      img: require('../../../../assets/images/devAssets/internalImages/image1.png')
     },
     {
       title: 'II',
-      img: require('../../../assets/images/devAssets/internalImages/image2.png')
+      img: require('../../../../assets/images/devAssets/internalImages/image2.png')
     },
     {
       title: 'III',
-      img: require('../../../assets/images/devAssets/internalImages/image3.png')
+      img: require('../../../../assets/images/devAssets/internalImages/image3.png')
     },
   ]
   return (

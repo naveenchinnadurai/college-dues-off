@@ -4,6 +4,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import React, { useEffect } from 'react';
 import 'react-native-reanimated';
 import { UserProvider } from '../context/userContext';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -27,10 +28,10 @@ export default function RootLayout() {
     <UserProvider>
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="index" />
-        <Stack.Screen name="home" />
-        <Stack.Screen name="studentLogin" />
-        <Stack.Screen name="staffLogin" />
-        <Stack.Screen name="onBoarding" />
+        <Stack.Screen name="(screen)/home" />
+        <Stack.Screen name="(auth)/studentLogin" />
+        <Stack.Screen name="(auth)/staffLogin" />
+        <Stack.Screen name="(screen)/onBoarding" />
         <Stack.Screen name="+not-found" />
       </Stack>
     </UserProvider>

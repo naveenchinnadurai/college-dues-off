@@ -12,59 +12,84 @@ export default function AppLayout() {
         borderTopRightRadius: 30
     }
     return (
-        <Tabs screenOptions={{ tabBarStyle: tabStyles, tabBarLabelStyle: { fontSize: 13, marginTop: 5, marginBottom: 2 } }}>
+        <Tabs
+            screenOptions={{
+                headerShown: false,
+                tabBarStyle: tabStyles,
+                tabBarLabelStyle: {
+                    fontSize: 13,
+                    marginTop: 5,
+                    marginBottom: 2,
+                    fontWeight: 'bold'
+                }
+            }}
+            initialRouteName="homeScreen"
+        >
             <Tabs.Screen
-                name="index"
+                name="homeScreen"
                 options={{
                     title: 'Home',
-                    headerShown: false,
-                    tabBarIcon: () => (
-                        <Image source={require('../../../assets/images/devAssets/activeIcons/home.png')} className='h-7 w-7' />
-                    ),
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+                            source={focused 
+                                ? require('../../../assets/images/devAssets/activeIcons/home.png') 
+                                : require('../../../assets/images/devAssets/inactiveIcons/home.png')
+                            }
+                            className='h-6 w-6'
+                        />
+                    )
                 }}
             />
             <Tabs.Screen
                 name="marks"
                 options={{
                     title: 'Marks',
-                    headerShown: false,
-                    tabBarIcon: () => (
-                        <Image source={require('../../../assets/images/devAssets/inactiveIcons/marks.png')} className='h-7 w-7' />
-                    ),
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+                            source={focused 
+                                ? require('../../../assets/images/devAssets/activeIcons/marks.png') 
+                                : require('../../../assets/images/devAssets/inactiveIcons/marks.png')
+                            }
+                            className='h-6 w-6'
+                        />
+                    )
                 }}
             />
             <Tabs.Screen
                 name="notify"
                 options={{
                     title: 'Notification',
-                    headerShown: false,
-                    tabBarIcon: () => (
-                        <Image source={require('../../../assets/images/devAssets/inactiveIcons/notify.png')} className='h-6 w-6' />
-                    ),
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+                            source={focused 
+                                ? require('../../../assets/images/devAssets/activeIcons/notify.png') 
+                                : require('../../../assets/images/devAssets/inactiveIcons/notify.png')
+                            }
+                            className='h-6 w-6'
+                        />
+                    )
                 }}
             />
             <Tabs.Screen
                 name="profile"
                 options={{
                     title: 'Profile',
-                    headerShown: false,
-                    tabBarIcon: () => (
-                        <Image source={require('../../../assets/images/devAssets/inactiveIcons/profile.png')} className='h-6 w-6' />
+                    tabBarIcon: ({ focused }) => (
+                        <Image
+                            source={focused
+                                ? require('../../../assets/images/devAssets/activeIcons/profile.png')
+                                : require('../../../assets/images/devAssets/inactiveIcons/profile.png')
+                            }
+                            className='h-7 w-6'
+                        />
                     ),
                 }}
             />
             <Tabs.Screen
-                name="internalMarks"
+                name="index"
                 options={{
-                    headerShown: false,
-                    tabBarButton:()=>null
-                }}
-            />
-            <Tabs.Screen
-                name="request"
-                options={{
-                    headerShown: false,
-                    tabBarButton:()=>null
+                    title: 'index',
+                    tabBarButton: () => null
                 }}
             />
         </Tabs>

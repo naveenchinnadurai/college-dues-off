@@ -4,48 +4,73 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import CheckBox from 'react-native-vector-icons/Fontisto'
 import { Image } from 'react-native';
-import { Link } from 'expo-router';
+import { Link, useNavigation, useRouter } from 'expo-router';
+import { useUser } from '@/context/userContext';
 
 interface credentialType {
-    userName: string;
+    rollNo: string;
     password: string
 }
 
 const Index = () => {
-    const [credential, setCredential] = useState<credentialType | undefined>()
+    const { setUser } = useUser()
+    const navigate = useNavigation()
+    const [credential, setCredential] = useState<credentialType>({
+        rollNo: "",
+        password: ""
+    })
     const [isChecked, setIsChecked] = useState(false);
+    const [showPassword, setShowPassword] = useState(false);
     const floating = [
         {
-            img: require('../../../assets/images/floatings/bookImg1.png'),
+            img: require('../../assets/images/floatings/bookImg1.png'),
             styles: ""
         },
         {
-            img: require('../../../assets/images/floatings/bookImg2.png'),
+            img: require('../../assets/images/floatings/bookImg2.png'),
             styles: ""
         },
         {
-            img: require('../../../assets/images/floatings/bookImg3.png'),
+            img: require('../../assets/images/floatings/bookImg3.png'),
             styles: ""
         },
         {
-            img: require('../../../assets/images/floatings/bookImg4.png'),
+            img: require('../../assets/images/floatings/bookImg4.png'),
             styles: ""
         },
         {
-            img: require('../../../assets/images/floatings/bookImg5.png'),
+            img: require('../../assets/images/floatings/bookImg5.png'),
             styles: ""
         }
     ]
+
+    const handleInputChange = (field: string, value: string) => {
+        setCredential({ ...credential, [field]: value });
+    };
+
+    const handleLogin = () => {
+        console.log(credential);
+        setUser({
+            id: credential.rollNo,
+            name: "Swetha K",
+            email: "07092004swethak@gmail.com",
+            type: "Student",
+            department: "Agriculture"
+        })
+        navigate.navigate('(screen)/onBoarding')
+    };
+
+
     return (
         <SafeAreaView className='bg-white flex-1 overflow-hidden items-center'>
             <StatusBar backgroundColor="#fff" barStyle="dark-content" />
             <View className='w-full h-4/6'>
-                <Image source={floating[0].img} className={`absolute top-60 left-12 h-10 w-10`} />
-                <Image source={floating[1].img} className={`absolute top-36 left-28 h-10 w-10`} />
+                <Image source={floating[0].img} className={`absolute top-60 left-16 h-10 w-10`} />
+                <Image source={floating[1].img} className={`absolute top-28 left-24 h-10 w-10`} />
                 <Image source={floating[2].img} className={`absolute top-8 right-56 h-10 w-10`} />
-                <Image source={floating[3].img} className={`absolute top-48 right-10 h-10 w-10`} />
+                <Image source={floating[3].img} className={`absolute top-48 right-8 h-10 w-10`} />
                 <Image source={floating[4].img} className={`absolute top-20 right-24 h-10 w-10`} />
-                <Image source={require('../../../assets/images/bgPattern.png')} />
+                <Image source={require('../../assets/images/bgPattern.png')} />
             </View>
             <View
                 className='bg-white h-4/6 -mt-[68%] shadow-xl rounded-t-full p-5 w-[700px]'
@@ -64,20 +89,23 @@ const Index = () => {
                     <View className='flex space-y-3'>
                         <View className='space-y-3 w-[300px]'>
                             <TextInput
-                                placeholder="Register Number"
+                                placeholder="Roll Number"
                                 className='bg-[#DEDEDE] px-4 py-3 rounded-md  w-full text-lg text-[#6F6C6C]'
-                                value={credential?.userName}
+                                value={credential?.rollNo}
+                                onChangeText={(text) => handleInputChange('rollNo', text)}
                             />
                             <TextInput
                                 placeholder="Password"
                                 className='bg-[#DEDEDE]  px-4 py-3 rounded-md  w-full text-lg text-[#6F6C6C]'
-                                value={credential?.userName}
+                                value={credential?.password}
+                                secureTextEntry={showPassword}
+                                onChangeText={(text) => handleInputChange('password', text)}
                             />
                         </View>
                         <View className=' w-[300px] flex flex-row justify-between'>
                             <View className='flex space-x-2 px-1 flex-row items-center'>
                                 <TouchableOpacity className='w-4 justify-center items-center' onPress={() => setIsChecked(!isChecked)}>
-                                        <CheckBox name={isChecked ? "checkbox-passive" : "checkbox-active"} size={15} />
+                                    <CheckBox name={isChecked ? "checkbox-passive" : "checkbox-active"} size={15} />
                                 </TouchableOpacity>
                                 <Text className='text-[#6F6C6C] text-md'>Remember Me</Text>
                             </View>
@@ -85,8 +113,12 @@ const Index = () => {
                         </View>
                     </View>
                     <View className='flex space-y-3 w-[300px]'>
-                        <Link href='/onBoarding' className='text-xl text-center bg-primary px-4 py-2 rounded-md text-white'>Login</Link>
-                        <Link href="/" className='px-4 py-2 rounded-md text-xl text-primary text-center'>Back</Link>
+                        <TouchableOpacity className='bg-primary px-4 py-2 rounded-md ' onPress={handleLogin}>
+                            <Text className='text-white text-xl text-center'>Login</Text>
+                        </TouchableOpacity>
+                        <Link href="/" className='px-4 py-2 rounded-md flex justify-center'>
+                            <Text className='text-xl text-primary bg-red-200 text-center '>Back</Text>
+                        </Link>
                     </View>
                 </View>
             </View>

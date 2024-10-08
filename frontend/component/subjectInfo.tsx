@@ -4,17 +4,17 @@ import { View, Text, Image, TouchableOpacity, ScrollView } from 'react-native';
 
 const SubjectInfo = () => {
     return (
-        <View className="flex-1 bg-white space-y-4 h-full">
+        <View className="flex-1 space-y-4 h-full">
             <View className="w-full h-52 my-3 bg-gray-200 rounded-lg justify-center items-center">
-                <Image source={require('../../assets/images/devAssets/subImgBig.png')} className="w-full h-full" />
+                <Image source={require('../assets/images/devAssets/subImgBig.png')} className="w-full h-full" />
             </View>
-            <View className="space-y-2">
+            <View className="space-y-1">
                 <Text className="text-xl font-semibold mb-2">About Software Architecture & Design?</Text>
                 <Text className="text-lg text-gray-600">
                     Discover the foundations of robust and scalable software with our insights on Software Architecture and Design.
                     Learn how to create systems that are maintainable, secure, and efficient.
                 </Text>
-                <View className="flex">
+                <View className="flex my-3">
                     <Text className="text-lg font-semibold">Subject Staff</Text>
                     <Text className="text-lg text-gray-600">Dr. B. Sujatha, Dean Academics.</Text>
                 </View>

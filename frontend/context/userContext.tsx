@@ -1,10 +1,11 @@
 import React, { createContext, useState, useContext, ReactNode, Dispatch, SetStateAction } from 'react';
-import { User } from '../utils/types';
+import { Staff, Student, User } from '../utils/types';
+import { useNavigation } from 'expo-router';
 
 interface UserContextType {
     user: User | null;
     setUser: Dispatch<SetStateAction<User | null>>;
-    login: (userData: User) => void;
+    login: (userData: User | null) => void;
     logout: () => void;
 }
 
@@ -12,8 +13,8 @@ const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
-
-    const login = (userData: User) => {
+    const navigate=useNavigation()
+    const login = (userData: User | null) => {
         setUser(userData);
     };
 

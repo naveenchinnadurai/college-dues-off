@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 import { Link, useRouter } from 'expo-router'
-import { useUser } from '../../../context/userContext'
-import { StaffOnBoard, StudentOnBoard } from '../../../utils/data'
+import { useUser } from '../../context/userContext'
+import { StaffOnBoard, StudentOnBoard } from '../../utils/data'
 import Icon from 'react-native-vector-icons/Ionicons'
 
-const Index = () => {
+const onBoarding = () => {
     const router = useRouter()
     const { user } = useUser()
     const [slide, setSlide] = useState<number>(0)
@@ -52,4 +52,4 @@ const Index = () => {
     )
 }
 
-export default Index
+export default onBoarding;

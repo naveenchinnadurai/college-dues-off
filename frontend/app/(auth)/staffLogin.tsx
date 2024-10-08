@@ -1,13 +1,13 @@
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native'
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import Staff from 'react-native-vector-icons/FontAwesome5';
+import CheckBox from 'react-native-vector-icons/Fontisto';
 import { Link } from 'expo-router';
-import CheckBox from 'react-native-vector-icons/Fontisto'
-import Staff from 'react-native-vector-icons/FontAwesome5'
 import { Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native'
 
 interface credentialType {
     userName: string;
-    password: string
+    password: string;
 }
 
 const Index = () => {
@@ -17,7 +17,7 @@ const Index = () => {
         <SafeAreaView className='bg-white flex-1 overflow-hidden items-center'>
             <StatusBar backgroundColor="#fff" barStyle="dark-content" />
             <View className='w-full h-4/6'>
-                <Image source={require('../../../assets/images/bgPattern.png')} />
+                <Image source={require('../../assets/images/bgPattern.png')} />
             </View>
             <View
                 className='bg-white h-4/6 -mt-[68%] shadow-xl rounded-t-full p-5 w-[700px]'
@@ -61,8 +61,12 @@ const Index = () => {
                         </View>
                     </View>
                     <View className='flex space-y-3 w-[300px]'>
-                        <Link href='/onBoarding' className='text-xl text-center bg-[#54C15F] px-4 py-2 rounded-md text-white'>Login</Link>
-                        <Link href="/" className='px-4 py-2 rounded-md text-xl text-[#54C15F] text-center'>Back</Link>
+                        <Link href='/onBoarding' className='text-xl text-center bg-[#54C15F] px-4 py-2 rounded-md text-white'>
+                            <Text>Login</Text>
+                        </Link>
+                        <Link href="/" className='px-4 py-2 rounded-md text-xl text-[#54C15F] text-center'>
+                            <Text>Back</Text>
+                        </Link>
                     </View>
                 </View>
             </View>
