@@ -2,7 +2,7 @@
 
 export interface User {
   id: String | null;
-  type: 'Student' | 'Staff';
+  type: 'student' | 'staff';
   name: String | null;
   email: String | null;
   department: String;
@@ -17,3 +17,8 @@ export interface Staff {
   subjectTeaching: String[];
   advisorFor: String;
 }
+
+
+export type studentRoutes = {
+  home: undefined;
+};

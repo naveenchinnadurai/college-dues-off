@@ -52,12 +52,11 @@ const Index = () => {
         console.log(credential);
         setUser({
             id: credential.rollNo,
-            name: "Swetha K",
+            name: "Swetha Kumar",
             email: "07092004swethak@gmail.com",
-            type: "Student",
+            type: "student",
             department: "Agriculture"
         })
-        navigate.navigate('(screen)/onBoarding')
     };
 
 
@@ -114,10 +113,10 @@ const Index = () => {
                     </View>
                     <View className='flex space-y-3 w-[300px]'>
                         <TouchableOpacity className='bg-primary px-4 py-2 rounded-md ' onPress={handleLogin}>
-                            <Text className='text-white text-xl text-center'>Login</Text>
+                            <Link href="/onBoarding" className='text-white text-xl text-center'>Login</Link>
                         </TouchableOpacity>
-                        <Link href="/" className='px-4 py-2 rounded-md flex justify-center'>
-                            <Text className='text-xl text-primary bg-red-200 text-center '>Back</Text>
+                        <Link href="/" className='px-4 py-2 rounded-md flex w-full text-xl text-primary text-center'>
+                            Back
                         </Link>
                     </View>
                 </View>

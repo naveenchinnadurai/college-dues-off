@@ -49,11 +49,13 @@ const Index = () => {
                         <View className=' w-[300px] flex flex-row justify-between'>
                             <View className='flex space-x-2 px-1 flex-row items-center'>
                                 <TouchableOpacity className='w-4 justify-center items-center' onPress={() => setIsChecked(!isChecked)}>
-                                    {isChecked ? (
-                                        <CheckBox name="checkbox-passive" size={15} />
-                                    ) : (
-                                        <CheckBox name="checkbox-active" size={15} />
-                                    )}
+                                    {
+                                        isChecked ? (
+                                            <CheckBox name="checkbox-passive" size={15} />
+                                        ) : (
+                                            <CheckBox name="checkbox-active" size={15} />
+                                        )
+                                    }
                                 </TouchableOpacity>
                                 <Text className='text-[#6F6C6C] text-md'>Remember Me</Text>
                             </View>
