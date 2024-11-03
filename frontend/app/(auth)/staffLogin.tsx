@@ -4,15 +4,37 @@ import CheckBox from 'react-native-vector-icons/Fontisto';
 import { Link } from 'expo-router';
 import { Image } from 'react-native';
 import { View, Text, TextInput, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native'
+import { useUser } from '@/context/userContext';
 
 interface credentialType {
-    userName: string;
+    email: string;
     password: string;
 }
 
 const Index = () => {
-    const [credential, setCredential] = useState<credentialType | undefined>()
+    const {setUser, router}=useUser();
+    const [credential, setCredential] = useState<credentialType>({
+        email: "",
+        password: ""
+    })   
     const [isChecked, setIsChecked] = useState(false);
+
+    const handleInputChange = (field: string, value: string) => {  //updates credential object when inputs changes
+        setCredential({ ...credential, [field]: value });
+    };
+
+    const handleLogin = () => {
+        console.log(credential); //checking log!
+        setUser({
+            id: '27392004',
+            name: "Suganya Vijayakumar",
+            email: credential.email,
+            type: "staff",
+            department: "Medical"
+        })
+        router.push('/(screens)/staff')
+    };
+
     return (
         <SafeAreaView className='bg-white flex-1 overflow-hidden items-center'>
             <StatusBar backgroundColor="#fff" barStyle="dark-content" />
@@ -36,14 +58,17 @@ const Index = () => {
                     <View className='flex space-y-3'>
                         <View className='space-y-3 w-[300px]'>
                             <TextInput
-                                placeholder="Register Number"
+                                placeholder="Email Id"
                                 className='bg-[#DEDEDE] px-4 py-3 rounded-md  w-full text-lg text-[#6F6C6C]'
-                                value={credential?.userName}
+                                value={credential?.email}
+                                onChangeText={(text) => handleInputChange('email', text)}
                             />
                             <TextInput
                                 placeholder="Password"
                                 className='bg-[#DEDEDE]  px-4 py-3 rounded-md  w-full text-lg text-[#6F6C6C]'
-                                value={credential?.userName}
+                                value={credential?.password}
+                                onChangeText={(text) => handleInputChange('password', text)}
+
                             />
                         </View>
                         <View className=' w-[300px] flex flex-row justify-between'>
@@ -63,9 +88,9 @@ const Index = () => {
                         </View>
                     </View>
                     <View className='flex space-y-3 w-[300px]'>
-                        <Link href='/onBoarding' className='text-xl text-center bg-[#54C15F] px-4 py-2 rounded-md text-white'>
-                            <Text>Login</Text>
-                        </Link>
+                        <TouchableOpacity onPress={()=>handleLogin()} className=' bg-[#54C15F] px-4 py-3 rounded-md '>
+                            <Text className='text-center text-white text-xl'>Login</Text>
+                        </TouchableOpacity>
                         <Link href="/" className='px-4 py-2 rounded-md text-xl text-[#54C15F] text-center'>
                             <Text>Back</Text>
                         </Link>

@@ -1,22 +1,19 @@
-import { useUser } from '@/context/userContext';
 import Icon from '@expo/vector-icons/MaterialIcons';
-import { useNavigation, useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Image, Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import { useUser } from '@/context/userContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { Image, Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 const Index = () => {
-  const router=useRouter();
-  const { user, logout } = useUser()
+  const { user, logout, router } = useUser()
   const [modalVisible, setModalVisible] = useState<boolean>(false)
-  const navigate = useNavigation()
   return (
     <SafeAreaView>
       <ScrollView className={`p-3 ${modalVisible ? "opacity-40 blur-xl" : ""}`}>
         <View className="flex-row items-center justify-between w-full">
           <View className="flex-row items-center">
             <Image
-              source={require('../../../../assets/images/devAssets/profile.png')}
+              source={require('../../../../assets/images/devAssets/profile.jpg')}
               className="w-16 h-16 rounded-full"
             />
             <View className="ml-4">

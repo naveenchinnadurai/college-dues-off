@@ -1,29 +1,31 @@
-import React, { createContext, useState, useContext, ReactNode, Dispatch, SetStateAction } from 'react';
-import { Staff, Student, User } from '../utils/types';
-import { useNavigation } from 'expo-router';
+import { Router, useRouter } from 'expo-router';
+import React, { createContext, Dispatch, ReactNode, SetStateAction, useContext, useState } from 'react';
+import { User } from '../utils/types';
 
 interface UserContextType {
     user: User | null;
     setUser: Dispatch<SetStateAction<User | null>>;
     login: (userData: User | null) => void;
     logout: () => void;
+    router:Router;
 }
 
 const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export const UserProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [user, setUser] = useState<User | null>(null);
-    const navigate=useNavigation()
+    const router=useRouter()
     const login = (userData: User | null) => {
         setUser(userData);
     };
 
     const logout = () => {
         setUser(null);
+        router.push('/')
     };
 
     return (
-        <UserContext.Provider value={{ user, setUser, login, logout }}>
+        <UserContext.Provider value={{ user, setUser, login, logout, router }}>
             {children}
         </UserContext.Provider>
     );

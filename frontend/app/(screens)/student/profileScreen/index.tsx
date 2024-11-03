@@ -1,15 +1,13 @@
+import { useUser } from '@/context/userContext';
 import React from 'react';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import FeatherIcons from 'react-native-vector-icons/Feather';
 import IconDisplay from 'react-native-vector-icons/FontAwesome6';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import { useUser } from '@/context/userContext';
-import { useRouter } from 'expo-router';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Profile() {
-    const router = useRouter();
-    const { user } = useUser()
+    const { user, router } = useUser()
 
     return (
         <SafeAreaView className="flex-1 bg-white justify-between">
@@ -34,7 +32,7 @@ export default function Profile() {
             </View>
 
             <View className="p-4 space-y-3">
-                <TouchableOpacity onPress={()=>router.push('/(screen)/student/profileScreen/noDuesAccept')} className="flex-row justify-between items-center mb-4">
+                <TouchableOpacity onPress={()=>router.push('/(screens)/student/profileScreen/noDuesAccept')} className="flex-row justify-between items-center mb-4">
                     <Text className="text-lg font-medium">No dues Accepted</Text>
                     <View className="flex-row items-center">
                         <Text className="text-base font-bold bg-success px-2 rounded-xl text-white">3</Text>

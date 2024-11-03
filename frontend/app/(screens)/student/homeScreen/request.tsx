@@ -1,7 +1,6 @@
 import React from 'react';
 import Header from '@/component/header';
 import SubjectInfo from '@/component/subjectInfo';
-import { useNavigation } from 'expo-router';
 import { Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 const Request = () => {

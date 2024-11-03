@@ -1,20 +1,20 @@
-import React from 'react';
-import Icon from 'react-native-vector-icons/Ionicons'
-import FAIcon from 'react-native-vector-icons/FontAwesome6'
-import FABrand from 'react-native-vector-icons/FontAwesome5'
-import AntDesignIcon from 'react-native-vector-icons/AntDesign'
-import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import { useRouter } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import { notifications } from '@/constants/subjects';
-import { View, Text, TextInput, FlatList, TouchableOpacity } from 'react-native';
+import { useUser } from '@/context/userContext';
+import React from 'react';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
+import FABrand from 'react-native-vector-icons/FontAwesome5';
+import FAIcon from 'react-native-vector-icons/FontAwesome6';
+import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export default function Notifications() {
-  const router = useRouter()
+  const {router} = useUser()
   return (
     <SafeAreaView className="flex-1 bg-white p-5 ">
       <View className='relative flex flex-row justify-center items-center w-full'>
-        <TouchableOpacity className='absolute left-0 ' onPress={() => router.push('/(screen)/student/homeScreen')}>
+        <TouchableOpacity className='absolute left-0 ' onPress={() => router.push('/(screens)/student/homeScreen')}>
           <FAIcon name='arrow-left' size={25} />
         </TouchableOpacity>
         <Text className='text-2xl font-medium'>Notifications</Text>

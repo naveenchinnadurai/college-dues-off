@@ -1,11 +1,11 @@
 import React from 'react'
-import { Link, useNavigation, useRouter } from 'expo-router'
-import { ImageBackground, Text, TouchableOpacity, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import IconDisplay from 'react-native-vector-icons/FontAwesome6'
 import InternalMarks from './internalMarks'
+import { useUser } from '@/context/userContext'
+import { ImageBackground, Text, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 const Mark = () => {
-  const router=useRouter();
+  const { router } = useUser();
   const images = [
     {
       title: 'I',

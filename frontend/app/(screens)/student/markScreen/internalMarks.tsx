@@ -1,13 +1,11 @@
+import Header from '@/component/header';
 import { data } from '@/constants/subjects';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import IconDisplay from 'react-native-vector-icons/MaterialCommunityIcons';
-import Header from '@/component/header';
-import { useNavigation } from 'expo-router';
 
 const InternalMarks = () => {
-  const navigate = useNavigation()
   return (
     <SafeAreaView className="h-full flex-col justify-between p-3" >
      <Header text="Internal Marks"/>

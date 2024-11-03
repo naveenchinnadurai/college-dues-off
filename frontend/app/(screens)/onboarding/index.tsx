@@ -1,15 +1,12 @@
+import { Link } from 'expo-router'
 import React, { useEffect, useState } from 'react'
-import { View, Text, Image, TouchableOpacity } from 'react-native'
-import { Link, useRouter } from 'expo-router'
+import { Image, Text, TouchableOpacity, View } from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons'
 import { useUser } from '../../../context/userContext'
 import { StaffOnBoard, StudentOnBoard } from '../../../utils/data'
-import Icon from 'react-native-vector-icons/Ionicons'
 
-const onBoarding = () => {
-
-    useEffect(() => { }, [])
-    const router = useRouter()
-    const { user } = useUser()
+const OnBoarding = () => {
+    const { user, router } = useUser()
     const [slide, setSlide] = useState<number>(0)
     const flag = user?.type === "student";
     const index = flag ? StudentOnBoard : StaffOnBoard;
@@ -19,7 +16,7 @@ const onBoarding = () => {
             setSlide(slide + 1)
             return;
         }
-        router.push('/student')
+        router.push('/(screens)/student')
     }
 
     const prevSlide = () => {
@@ -55,4 +52,4 @@ const onBoarding = () => {
     )
 }
 
-export default onBoarding;
+export default OnBoarding;
