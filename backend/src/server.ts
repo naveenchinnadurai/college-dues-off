@@ -3,6 +3,7 @@ import { cors } from 'hono/cors';
 import dotenv from 'dotenv';
 import staffRoutes from './routes/staff.routes';
 import studentRoutes from './routes/student.routes';
+import authroutes from './routes/auth.routes';
 import { serve } from '@hono/node-server';
 
 dotenv.config();
@@ -15,12 +16,14 @@ app.use('*', cors());
 
 // Root endpoint
 app.get('/', (c: Context) => {
-  return c.json({ greet: "Hello World" });
+  console.log("api called!")
+  return c.json({ greet: "Hello World", name: "karthi"});
 });
 
 // API endpoint routes for CRUD operations
 app.route('/staffs', staffRoutes);
 app.route('/students', studentRoutes);
+app.route('/auth', authroutes);
 
 // Create and start the server
 serve({

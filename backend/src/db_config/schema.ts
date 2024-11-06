@@ -16,7 +16,6 @@ export const students = pgTable("students", {
   name: text("name").notNull(),
   email: text("email").unique().notNull(),
   password: text("password").notNull(),
-  parentsNo: text("parents_no").unique().notNull(),
   dept: text("dept"),
   year: text("year")
 });

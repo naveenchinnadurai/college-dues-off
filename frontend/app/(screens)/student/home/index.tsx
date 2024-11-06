@@ -1,12 +1,29 @@
 import Icon from '@expo/vector-icons/MaterialIcons';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useUser } from '@/context/userContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image, Modal, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 
 const Index = () => {
   const { user, logout, router } = useUser()
+  const [name, setName] = useState("")
   const [modalVisible, setModalVisible] = useState<boolean>(false)
+  const fetchData = async () => {
+    const res = await fetch('http://192.168.38.74:7000/')
+      .then(response => response.json())
+      .then(data => {
+        setName(data.name);
+      })
+      .catch(error => {
+        console.error('Error:', error);
+      });
+  };
+
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <SafeAreaView>
       <ScrollView className={`p-3 ${modalVisible ? "opacity-40 blur-xl" : ""}`}>
@@ -17,7 +34,7 @@ const Index = () => {
               className="w-16 h-16 rounded-full"
             />
             <View className="ml-4">
-              <Text className="text-2xl font-semibold">{user?.name}</Text>
+              <Text className="text-2xl font-semibold">{name}</Text>
               <Text className="text-gray-500 text-lg">{user?.id}</Text>
             </View>
           </View>
@@ -75,7 +92,7 @@ const Index = () => {
                       <Text className="text-gray-500 w-2/3">Software & Architecture Design</Text>
                     </View>
                   </View>
-                  <TouchableOpacity className="bg-primary px-5 py-3 rounded-lg" onPress={() => router.push('/student/homeScreen/request')}>
+                  <TouchableOpacity className="bg-primary px-5 py-3 rounded-lg" onPress={() => router.push('/student/home/request')}>
                     <Text className="text-white font-bold">Request</Text>
                   </TouchableOpacity>
                 </View>
