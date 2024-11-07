@@ -57,9 +57,9 @@ const Index = () => {
         </Modal>
         <View className='flex gap-2 pt-3'>
           <Text className='text-xl text-start'>College Updated</Text>
-          <View className="flex-row gap-1">
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row gap-1">
             {
-              [1, 2, 3].map((e, i) => {
+              [1, 2, 3,4,5].map((e, i) => {
                 return (
                   <View className="flex-row py-2 gap-1 bg-gray-300 px-1 h-[180px] w-1/3 rounded-2xl" key={i}>
                     <Image
@@ -74,7 +74,7 @@ const Index = () => {
                 )
               })
             }
-          </View>
+          </ScrollView>
         </View>
         <View className='pt-3 flex gap-2 pb-5'>
           <Text className="text-2xl font-medium">No Due Request</Text>

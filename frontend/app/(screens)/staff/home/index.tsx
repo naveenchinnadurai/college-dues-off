@@ -14,20 +14,21 @@ const HomeScreen = () => {
   ];
 
   return (
-    <ScrollView className="flex-1 bg-white px-4">
-        <SafeAreaView>
+    <ScrollView className="flex h-screen w-screen bg-white px-4">
+      <SafeAreaView>
         {/* Profile Section */}
-        <View className="flex-row bg-red-500 items-center justify-between w-full">
-          <View className="flex-row items-center">
-            <Image
-              source={{ uri: 'https://i.pravatar.cc/150?img=1' }}
-              className="w-16 h-16 rounded-full"
+
+        <View className="flex-row tems-center w-full py-3 px-1">
+          <Image
+            source={{ uri: 'https://i.pravatar.cc/150?img=1' }}
+            className="w-16 h-16 rounded-full"
             />
-            <View className="ml-2.5">
-              <Text className="text-xl font-bold">Staff</Text>
+          <View className="flex-row items-center px-2 justify-stretch">
+            <View className="">
+              <Text className="text-xl font-bold">Swetha Kumar</Text>
               <Text className="text-gray-500">Assistant Professor - CSE</Text>
             </View>
-            <TouchableOpacity className="ml-auto">
+            <TouchableOpacity className="">
               <Icon name="logout" size={30} color="black" />
             </TouchableOpacity>
           </View>
@@ -45,7 +46,7 @@ const HomeScreen = () => {
 
           <View className="items-center mr-4">
             <Image source={{ uri: 'https://i.pravatar.cc/150?img=2' }} className="w-20 h-30 rounded-lg" />
-            <Text>Dr.Sathish</Text>
+            <Text>Dr.Satish Kumar</Text>
             <Text>Principal</Text>
           </View>
 
