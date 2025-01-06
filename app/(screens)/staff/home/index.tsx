@@ -2,8 +2,10 @@ import React from 'react';
 import { View, Text, Image, ScrollView, TouchableOpacity } from 'react-native';
 import Icon from '@expo/vector-icons/MaterialIcons';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useUser } from '@/context/userContext';
 
 const HomeScreen = () => {
+  const { user } = useUser()
   const requests = [
     { id: 1, name: 'Akash K', regNo: '6123212006', dept: 'CSE (IV)' },
     { id: 2, name: 'John D.', regNo: '6123212007', dept: 'EE (II)' },
@@ -22,10 +24,10 @@ const HomeScreen = () => {
           <Image
             source={{ uri: 'https://i.pravatar.cc/150?img=1' }}
             className="w-16 h-16 rounded-full"
-            />
-          <View className="flex-row items-center px-2 justify-stretch">
+          />
+          <View className="flex-row items-center px-2 justify-between bg-red-300 w-full">
             <View className="">
-              <Text className="text-xl font-bold">Swetha Kumar</Text>
+              <Text className="text-xl font-bold">{ user?.name }</Text>
               <Text className="text-gray-500">Assistant Professor - CSE</Text>
             </View>
             <TouchableOpacity className="">

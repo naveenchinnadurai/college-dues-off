@@ -27,7 +27,7 @@ const Index = () => {
         console.log(credential); //checking log!
         setUser({
             id: '27392004',
-            name: "Suganya Vijayakumar",
+            name: "Naveen Chinnadurai",
             email: credential.email,
             type: "staff",
             department: "Medical"

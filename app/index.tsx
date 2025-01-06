@@ -6,7 +6,7 @@ import { LogBox } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 
-const icon = require('../assets/images/icon.png')
+const icon = require('../assets/images/icon.png');
 
 const Index = () => {
     LogBox.ignoreAllLogs(); // removing warning popup in preview.
