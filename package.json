@@ -1,0 +1,32 @@
+{
+  "name": "backend_college_dues_off",
+  "version": "1.0.0",
+  "description": "Backend server for College_dues-off react_native expo mobile app",
+  "main": "src/server.ts",
+  "scripts": {
+    "dev": "ts-node-dev src/server.ts",
+    "db:studio": "npx drizzle-kit studio",
+    "db:generate": "drizzle-kit generate",
+    "db:push": "drizzle-kit push"
+  },
+  "author": "desdev'ers",
+  "license": "ISC",
+  "dependencies": {
+    "@hono/node-server": "^1.12.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.32.0",
+    "hono": "^4.5.4",
+    "postgres": "^3.4.4"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.5",
+    "@types/cors": "^2.8.17",
+    "@types/node": "^20.14.11",
+    "@types/pg": "^8.11.6",
+    "drizzle-kit": "^0.23.0",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.5.3"
+  }
+}
