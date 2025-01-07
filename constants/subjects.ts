@@ -43,7 +43,7 @@ export const notifications = [
       message: 'Your NoDue Request Accepted!',
       time: '22:25',
       date: 'Today',
-      bgColor: ' bg-green-100 ',
+      status: true,
       textColor: 'text-green-700',
     },
     {
@@ -54,7 +54,7 @@ export const notifications = [
       message: 'Your NoDue Request Declined!',
       time: '21:25',
       date: 'Today',
-      bgColor: ' bg-red-200 ',
+      status: false,
       textColor: ' text-red-700 ',
     },
     {
@@ -65,7 +65,7 @@ export const notifications = [
       message: 'Your NoDue Request Accepted!',
       time: '20:20',
       date: 'Today',
-      bgColor: ' bg-green-200 ',
+      status: true,
       textColor: ' text-green-700 ',
     },
     {
@@ -76,7 +76,7 @@ export const notifications = [
       message: 'Your NoDue Request Accepted!',
       time: '19:30',
       date: 'Today',
-      bgColor: ' bg-green-100 ',
+      status: true,
       textColor: ' text-green-700 ',
     },
     {
@@ -87,7 +87,7 @@ export const notifications = [
       message: 'Your NoDue Request Declined!',
       time: '19:30',
       date: 'Today',
-      bgColor: ' bg-red-100 ',
+      status: false,
       textColor: ' text-red-700 ',
     },
   ];

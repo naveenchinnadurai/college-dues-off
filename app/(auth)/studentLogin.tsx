@@ -53,7 +53,8 @@ const Index = () => {
             name: "Swetha Kumar",
             email: "07092004swethak@gmail.com",
             type: "student",
-            department: "Agriculture"
+            department: "Agriculture",
+            role: "student"
         })
         router.push('/(screens)/onboarding')
     };

@@ -6,6 +6,7 @@ export interface User {
   name: String | null;
   email: String | null;
   department: String;
+  role: String | null
 }
 
 export interface Student {

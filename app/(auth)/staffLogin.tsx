@@ -30,7 +30,8 @@ const Index = () => {
             name: "Naveen Chinnadurai",
             email: credential.email,
             type: "staff",
-            department: "Medical"
+            department: "Medical",
+            role: "Assistant Proffessor - CSE"
         })
         router.push('/(screens)/staff')
     };
