@@ -32,7 +32,7 @@ const Mark = () => {
         {
           images.map((e, i) => {
             return (
-              <TouchableOpacity onPress={() => router.push('/student/markScreen/internalMarks')} key={i} className='overflow-hidden rounded-xl'>
+              <TouchableOpacity onPress={() => router.push('/student/marks/internalMarks')} key={i} className='overflow-hidden rounded-xl'>
                 <ImageBackground source={e.img} resizeMode='cover' resizeMethod='resize' className='relative flex justify-center items-center w-full  h-[180px]'>
                   <Text className='text-xl text-white font-medium'>Continuous Internal Assessment-{e.title}</Text>
                   <View className="absolute bottom-3 flex flex-row px-3 w-full justify-between">

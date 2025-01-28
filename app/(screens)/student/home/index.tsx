@@ -13,8 +13,8 @@ const Index = () => {
       <ScrollView className={`p-3 `}>
         <HomeHeader />
         <View className='flex gap-2 pt-3'>
-          <Text className='text-xl text-start'>College Updated</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row gap-1">
+          <Text className='text-xl text-start'>College Updates</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row">
             {
               [1, 2, 3, 4, 5].map((e, i) => {
                 return (
@@ -29,18 +29,18 @@ const Index = () => {
           {
             [1, 2, 3, 4, 5].map((e, i) => {
               return (
-                <View className="flex-row justify-around items-center p-4 bg-white rounded-lg shadow-md" key={i}>
-                  <View className="flex-row items-center gap-2">
+                <View className="flex-row justify-around items-center bg-white p-4 rounded-lg shadow-md overflow-hidden" key={i}>
+                  <View className="w-4/6 flex-row items-center gap-2">
                     <Image
                       source={require('../../../../assets/images/devAssets/subImage1.png')}
                       className="w-12 h-12 rounded-full"
                     />
-                    <View className="">
-                      <Text className="text-lg font-bold w-1/2">19CST701</Text>
-                      <Text className="text-gray-500 w-2/3">Software & Architecture Design</Text>
+                    <View className="w-2/3 flex flex-wrap">
+                      <Text className="text-lg font-bold ">19CST701</Text>
+                      <Text className="text-gray-500 w-full leading-xl">Software & Architecture Design</Text>
                     </View>
                   </View>
-                  <TouchableOpacity className="bg-primary px-5 py-3 rounded-lg" onPress={() => router.push('/student/home/request')}>
+                  <TouchableOpacity className="w-fit bg-primary px-5 py-3 rounded-lg" onPress={() => router.push('/student/home/request')}>
                     <Text className="text-white font-bold">Request</Text>
                   </TouchableOpacity>
                 </View>

@@ -24,7 +24,7 @@ export default function Notifications() {
         <TextInput placeholder="Search Your Notification..." className="flex-1" />
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View className="flex-row justify-between mb-4 space-x-2 items-center">
+        <View className="flex-row justify-between space-x-2 items-center">
           <MaterialIcons name='tune' size={25} />
           <TouchableOpacity className="bg-zinc-100 py-2 px-3 rounded-full flex-row space-x-2">
             <FABrand name='telegram-plane' size={18} />
@@ -41,7 +41,7 @@ export default function Notifications() {
         </View>
       </ScrollView>
 
-      <View>
+      <View className='mt-3'>
         {
           notifications.map((item, i) => {
             return (

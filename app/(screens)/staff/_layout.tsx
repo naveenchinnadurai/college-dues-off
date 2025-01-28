@@ -7,7 +7,7 @@ export default function AppLayout() {
     const tabStyles = {
         paddingBottom: 10,
         height: 70,
-        paddingTop: 15,
+        paddingTop: 10,
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30
     }
@@ -18,8 +18,6 @@ export default function AppLayout() {
                 tabBarStyle: tabStyles,
                 tabBarLabelStyle: {
                     fontSize: 13,
-                    marginTop: 5,
-                    marginBottom: 2,
                     fontWeight: 'bold'
                 }
             }}

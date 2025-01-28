@@ -12,11 +12,11 @@ interface credentialType {
 }
 
 const Index = () => {
-    const {setUser, router}=useUser();
+    const { setUser, router } = useUser();
     const [credential, setCredential] = useState<credentialType>({
         email: "",
         password: ""
-    })   
+    })
     const [isChecked, setIsChecked] = useState(false);
 
     const handleInputChange = (field: string, value: string) => {  //updates credential object when inputs changes
@@ -30,10 +30,10 @@ const Index = () => {
             name: "Naveen Chinnadurai",
             email: credential.email,
             type: "staff",
-            department: "Medical",
+            department: "Computer Science",
             role: "Assistant Proffessor - CSE"
         })
-        router.push('/(screens)/staff')
+        router.push('/(screens)/staff/home')
     };
 
     return (
@@ -89,7 +89,7 @@ const Index = () => {
                         </View>
                     </View>
                     <View className='flex space-y-3 w-[300px]'>
-                        <TouchableOpacity onPress={()=>handleLogin()} className=' bg-[#54C15F] px-4 py-3 rounded-md '>
+                        <TouchableOpacity onPress={() => handleLogin()} className=' bg-[#54C15F] px-4 py-3 rounded-md '>
                             <Text className='text-center text-white text-xl'>Login</Text>
                         </TouchableOpacity>
                         <Link href="/" className='px-4 py-2 rounded-md text-xl text-[#54C15F] text-center'>

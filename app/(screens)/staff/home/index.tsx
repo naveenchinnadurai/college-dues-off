@@ -26,7 +26,7 @@ const HomeScreen = () => {
         {/* College Updates Section */}
         <Text className="text-lg font-bold my-3">College Updates</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row space-x-2">
-          <View className="w-[117px] h-44 bg-green-100 justify-center items-center rounded-lg">
+          <View className="w-[117px] h-44 bg-green-100 justify-center items-center rounded-lg mr-2">
             <Text className="text-4xl text-black">+</Text>
             <Text className='text-sm w-4/5 text-center'>Add to Your Story</Text>
           </View>

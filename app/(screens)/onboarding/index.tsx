@@ -16,7 +16,11 @@ const OnBoarding = () => {
             setSlide(slide + 1)
             return;
         }
-        router.push('/(screens)/student')
+        if (flag) {
+            router.push('/(screens)/student/home')
+        } else {
+            router.push('/(screens)/staff/home')
+        }
     }
 
     const prevSlide = () => {
@@ -35,7 +39,7 @@ const OnBoarding = () => {
                     </TouchableOpacity>
                 ) : null
             }
-            <Link href="/student" className={`absolute right-5 text-xl font-medium border-b-2 ${flag ? 'text-primary border-b-primary' : 'text-[#54C15F] border-b-[#54C15F]'}`}>Skip</Link>
+            <Link href="/(screens)/student/home" className={`absolute right-5 text-xl font-medium border-b-2 ${flag ? 'text-primary border-b-primary' : 'text-[#54C15F] border-b-[#54C15F]'}`}>Skip</Link>
             <View className='w-full h-2/3 justify-center items-center'>
                 <Image source={index[slide].img} className='w-2/3 h-1/2' />
                 <Text className='text-xl font-medium mt-5 w-5/6 text-center'>{index[slide].text}</Text>
