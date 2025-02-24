@@ -10,11 +10,11 @@ const NoDuesAccept = () => {
     <SafeAreaView className="w-full p-3 h-screen bg-white">
       <Header text="No Dues Accepted"/>
 
-      <View className="mt-3 space-y-4">
+      <View className="mt-3 gap-4">
         {
             ["Adhoc Sensor & Networks", "Cloud Computing", "SMPS & UPS"].map((e,i)=>{
                 return (
-                    <View className="bg-green-50 rounded-lg p-3" key={i}>
+                    <View className="bg-green-50 rounded-lg px-3 py-4" key={i}>
                         <Text className="text-gray-800 font-semibold text-lg"> {e}</Text>
                         <Text className="text-green-600 text-base mt-1">
                             Your NoDue Request Accepted!

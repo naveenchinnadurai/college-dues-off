@@ -1,4 +1,4 @@
-import HomeHeader from '@/component/homeHeader';
+import Header from '@/component/profileHeader';
 import StoryCard from '@/component/storyCard';
 import { useUser } from '@/context/userContext';
 import React from 'react';
@@ -7,18 +7,17 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Index = () => {
   const { router } = useUser()
-
   return (
     <SafeAreaView>
-      <ScrollView className={`p-3 `}>
-        <HomeHeader />
+      <ScrollView className={`p-3`}>
+        <Header />
         <View className='flex gap-2 pt-3'>
           <Text className='text-xl text-start'>College Updates</Text>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row">
             {
               [1, 2, 3, 4, 5].map((e, i) => {
                 return (
-                  <StoryCard i={i} />
+                  <StoryCard i={i} key={i}/>
                 )
               })
             }

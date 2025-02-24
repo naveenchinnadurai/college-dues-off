@@ -3,7 +3,7 @@ import React from 'react'
 
 const StoryCard = ({ i }: { i: number }) => {
     return (
-        <View className="flex-row p-2 bg-zinc-700 w-[120px] h-44 rounded-lg mr-2" key={i}>
+        <View className="flex-row p-2 w-[110px] bg-naveen h-44 rounded-lg mr-2" key={i}>
             <Image
                 source={require('../assets/images/devAssets/profile1.png')}
                 className="w-8 h-8 rounded-full"

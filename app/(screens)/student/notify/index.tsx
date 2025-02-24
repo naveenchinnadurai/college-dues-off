@@ -19,22 +19,22 @@ export default function Notifications() {
         </TouchableOpacity>
         <Text className='text-2xl font-medium'>Notifications</Text>
       </View>
-      <View className="flex-row items-center bg-gray-200 rounded-xl p-3 my-3 space-x-2 mt-5">
+      <View className="flex-row items-center bg-gray-200 rounded-xl p-3 my-3 gap-2 mt-5">
         <Icon name='search' size={20} />
         <TextInput placeholder="Search Your Notification..." className="flex-1" />
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-        <View className="flex-row justify-between space-x-2 items-center">
+        <View className="flex-row justify-between gap-2 items-center">
           <MaterialIcons name='tune' size={25} />
-          <TouchableOpacity className="bg-zinc-100 py-2 px-3 rounded-full flex-row space-x-2">
+          <TouchableOpacity className="bg-zinc-100 py-2 px-3 rounded-full flex-row gap-2">
             <FABrand name='telegram-plane' size={18} />
             <Text className="text-gray-700">Nodue Request</Text>
           </TouchableOpacity>
-          <TouchableOpacity className="bg-zinc-100 py-2 px-3 rounded-full flex-row space-x-2">
+          <TouchableOpacity className="bg-zinc-100 py-2 px-3 rounded-full flex-row gap-2">
             <Icon name='mail-unread-outline' size={18} />
             <Text className="text-gray-700">Unread</Text>
           </TouchableOpacity>
-          <TouchableOpacity className="bg-zinc-100 py-2 px-3 rounded-full flex-row space-x-2">
+          <TouchableOpacity className="bg-zinc-100 py-2 px-3 rounded-full flex-row gap-2">
             <AntDesignIcon name='staro' size={18} />
             <Text className="text-gray-700">Favourite</Text>
           </TouchableOpacity>

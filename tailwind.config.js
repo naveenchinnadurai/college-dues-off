@@ -1,5 +1,12 @@
+const { getReactNavigationScreensConfig } = require('expo-router/build/getReactNavigationConfig');
+
+/** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: [ "./app/**/*.{ts,tsx}", "./component/**/*.{ts,tsx}", ], 
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}"
+  ],
+  presets: [require("nativewind/preset")],
   theme: {
     extend: {
       colors: {
@@ -11,9 +18,9 @@ module.exports = {
         },
         danger: {
           DEFAULT: '#FF4F4F'
-        },
+        }
       },
     },
   },
   plugins: [],
-}
+};

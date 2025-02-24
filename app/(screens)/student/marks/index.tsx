@@ -28,7 +28,7 @@ const Mark = () => {
         </TouchableOpacity>
         <Text className='text-2xl font-medium'>Internal Marks</Text>
       </View>
-      <View className='flex w-full space-y-3 h-full justify-center'>
+      <View className='flex w-full gap-3 h-full justify-center'>
         {
           images.map((e, i) => {
             return (

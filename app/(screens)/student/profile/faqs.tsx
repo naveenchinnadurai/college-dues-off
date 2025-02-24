@@ -18,16 +18,16 @@ export default function HelpSupportScreen() {
   
 
   return (
-    <SafeAreaView className="flex-1 flex-col justify-between bg-white p-4">
+    <SafeAreaView className="flex-1 flex-col justify-between p-3">
         <View>
             <Header text="Help & Support" />
-            <Text className="text-xl font-semibold mt-5">FAQs</Text>
+            <Text className="text-2xl font-semibold mt-5">FAQs</Text>
             {
                 faqs.map((faq, index) => (
-                    <View key={index} className="my-2">
+                    <View key={index} className="my-2 w-full">
                         <TouchableOpacity onPress={() => toggleFAQs(index)} className="flex-row justify-between items-center">
-                            <Text className="text-lg w-5/6 ">{faq.question}</Text>
-                            <Ionicons name={openFAQ === index ? 'chevron-up' : 'chevron-down'} size={20} color="black"  className='w-1/6' />
+                            <Text className="text-lg w-[94%]">{faq.question}</Text>
+                            <Ionicons name={openFAQ === index ? 'chevron-up' : 'chevron-down'} size={20} color="black"  className='w-fit' />
                         </TouchableOpacity>
                         {
                             openFAQ === index && (

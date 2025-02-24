@@ -33,14 +33,14 @@ const Index = () => {
             department: "Computer Science",
             role: "Assistant Proffessor - CSE"
         })
-        router.push('/(screens)/staff/home')
+        router.push('/(screens)/onboarding')
     };
 
     return (
         <SafeAreaView className='bg-white flex-1 overflow-hidden items-center'>
             <StatusBar backgroundColor="#fff" barStyle="dark-content" />
             <View className='w-full h-4/6'>
-                <Image source={require('../../assets/images/bgPattern.png')} />
+                <Image source={require('../../../assets/images/bgPattern.png')} />
             </View>
             <View
                 className='bg-white h-4/6 -mt-[68%] shadow-xl rounded-t-full p-5 w-[700px]'
@@ -56,11 +56,11 @@ const Index = () => {
                     <Text className='text-xl font-medium'>Staffs Login</Text>
                 </View>
                 <View className='flex flex-col p-1 gap-8 items-center'>
-                    <View className='flex space-y-3'>
-                        <View className='space-y-3 w-[300px]'>
+                    <View className='flex gap-3'>
+                        <View className='gap-3 w-[300px]'>
                             <TextInput
                                 placeholder="Email Id"
-                                className='bg-[#DEDEDE] px-4 py-3 rounded-md  w-full text-lg text-[#6F6C6C]'
+                                className='!bg-[#DEDEDE] px-4 py-3 rounded-md  w-full text-lg text-[#6F6C6C]'
                                 value={credential?.email}
                                 onChangeText={(text) => handleInputChange('email', text)}
                             />
@@ -73,7 +73,7 @@ const Index = () => {
                             />
                         </View>
                         <View className=' w-[300px] flex flex-row justify-between'>
-                            <View className='flex space-x-2 px-1 flex-row items-center'>
+                            <View className='flex gap-2 px-1 flex-row items-center'>
                                 <TouchableOpacity className='w-4 justify-center items-center' onPress={() => setIsChecked(!isChecked)}>
                                     {
                                         isChecked ? (
@@ -88,7 +88,7 @@ const Index = () => {
                             <Text className='text-md border-b text-[#6F6C6C] border-b-[#6F6C6C]'>Forget Password</Text>
                         </View>
                     </View>
-                    <View className='flex space-y-3 w-[300px]'>
+                    <View className='flex gap-3 w-[300px]'>
                         <TouchableOpacity onPress={() => handleLogin()} className=' bg-[#54C15F] px-4 py-3 rounded-md '>
                             <Text className='text-center text-white text-xl'>Login</Text>
                         </TouchableOpacity>

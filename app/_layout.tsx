@@ -26,12 +26,12 @@ export default function RootLayout() {
   return (
     <UserProvider>
       <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="index" />
-        <Stack.Screen name="(screens)/student" />
-        <Stack.Screen name="(screens)/staff" />
-        <Stack.Screen name="(auth)/studentLogin" />
-        <Stack.Screen name="(auth)/staffLogin" />
-        <Stack.Screen name="(screens)/onboarding" />
+        <Stack.Screen name="home" />
+        <Stack.Screen name="student" />
+        <Stack.Screen name="staff" />
+        <Stack.Screen name="studentLogin" />
+        <Stack.Screen name="staffLogin" />
+        <Stack.Screen name="onboarding" />
         <Stack.Screen name="+not-found" />
       </Stack>
     </UserProvider>

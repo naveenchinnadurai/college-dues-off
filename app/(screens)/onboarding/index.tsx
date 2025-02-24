@@ -17,7 +17,7 @@ const OnBoarding = () => {
             return;
         }
         if (flag) {
-            router.push('/(screens)/student/home')
+            router.push('/student/home')
         } else {
             router.push('/(screens)/staff/home')
         }

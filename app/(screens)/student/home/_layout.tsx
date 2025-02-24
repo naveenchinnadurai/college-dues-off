@@ -5,7 +5,7 @@ import 'react-native-reanimated';
 export default function MarkLayout() {
 
     return (
-        <Stack screenOptions={{ headerShown: false }}>
+        <Stack screenOptions={{ headerShown: false }} initialRouteName='index'>
             <Stack.Screen name="index" />
             <Stack.Screen name="request" />
         </Stack>

@@ -4,18 +4,17 @@ import { Image } from 'react-native';
 
 
 export default function AppLayout() {
-    const tabStyles = {
-        paddingBottom: 10,
-        height: 70,
-        paddingTop: 10,
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30
-    }
     return (
         <Tabs
             screenOptions={{
                 headerShown: false,
-                tabBarStyle: tabStyles,
+                tabBarStyle: {
+                    paddingBottom: 10,
+                    height: 70,
+                    paddingTop: 10,
+                    borderTopLeftRadius: 30,
+                    borderTopRightRadius: 30
+                },
                 tabBarLabelStyle: {
                     fontSize: 13,
                     fontWeight: 'bold'
@@ -29,8 +28,8 @@ export default function AppLayout() {
                     title: 'Home',
                     tabBarIcon: ({ focused }) => (
                         <Image
-                            source={focused 
-                                ? require('../../../assets/images/devAssets/activeIcons/home.png') 
+                            source={focused
+                                ? require('../../../assets/images/devAssets/activeIcons/home.png')
                                 : require('../../../assets/images/devAssets/inactiveIcons/home.png')
                             }
                             className='h-6 w-6'
@@ -39,13 +38,13 @@ export default function AppLayout() {
                 }}
             />
             <Tabs.Screen
-                name="marks"
+                name="dashboard"
                 options={{
-                    title: 'Marks',
+                    title: 'Dashboard',
                     tabBarIcon: ({ focused }) => (
                         <Image
-                            source={focused 
-                                ? require('../../../assets/images/devAssets/activeIcons/marks.png') 
+                            source={focused
+                                ? require('../../../assets/images/devAssets/activeIcons/marks.png')
                                 : require('../../../assets/images/devAssets/inactiveIcons/marks.png')
                             }
                             className='h-6 w-6'
@@ -59,8 +58,8 @@ export default function AppLayout() {
                     title: 'Notification',
                     tabBarIcon: ({ focused }) => (
                         <Image
-                            source={focused 
-                                ? require('../../../assets/images/devAssets/activeIcons/notify.png') 
+                            source={focused
+                                ? require('../../../assets/images/devAssets/activeIcons/notify.png')
                                 : require('../../../assets/images/devAssets/inactiveIcons/notify.png')
                             }
                             className='h-6 w-6'

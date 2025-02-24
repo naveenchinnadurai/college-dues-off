@@ -4,8 +4,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 const index = () => {
   return (
-    <SafeAreaView>
-      <Text>index</Text>
+    <SafeAreaView className='flex-row justify-center items-center h-screen'>
+      <Text>Profile</Text>
     </SafeAreaView>
   )
 }

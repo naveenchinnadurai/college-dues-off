@@ -21,23 +21,23 @@ const Index = () => {
     const [showPassword, setShowPassword] = useState(false); //eye button for password
     const floating = [
         {
-            img: require('../../assets/images/floatings/bookImg1.png'),
+            img: require('../../../assets/images/floatings/bookImg1.png'),
             styles: "top-60 left-16 "
         },
         {
-            img: require('../../assets/images/floatings/bookImg2.png'),
+            img: require('../../../assets/images/floatings/bookImg2.png'),
             styles: "top-28 left-24"
         },
         {
-            img: require('../../assets/images/floatings/bookImg3.png'),
+            img: require('../../../assets/images/floatings/bookImg3.png'),
             styles: "top-8 right-56"
         },
         {
-            img: require('../../assets/images/floatings/bookImg4.png'),
+            img: require('../../../assets/images/floatings/bookImg4.png'),
             styles: "top-48 right-8"
         },
         {
-            img: require('../../assets/images/floatings/bookImg5.png'),
+            img: require('../../../assets/images/floatings/bookImg5.png'),
             styles: "top-20 right-24"
         }
     ]
@@ -56,7 +56,7 @@ const Index = () => {
             department: "Agriculture Science",
             role: "student"
         })
-        router.push('/(screens)/student/home')
+        router.push('/(screens)/onboarding')
     };
 
 
@@ -71,7 +71,7 @@ const Index = () => {
                         )
                     })
                 }
-                <Image source={require('../../assets/images/bgPattern.png')} />
+                <Image source={require('../../../assets/images/bgPattern.png')} />
             </View>
             <View
                 className='bg-white h-4/6 -mt-[68%] shadow-xl rounded-t-full p-5 w-[700px]'
@@ -87,8 +87,8 @@ const Index = () => {
                     <Text className='text-xl font-medium'>Student Login</Text>
                 </View>
                 <View className='flex flex-col p-1 gap-8 items-center'>
-                    <View className='flex space-y-3'>
-                        <View className='space-y-3 w-[300px]'>
+                    <View className='flex gap-3'>
+                        <View className='gap-3 w-[300px]'>
                             <TextInput
                                 placeholder="Roll Number"
                                 className='bg-[#DEDEDE] px-4 py-3 rounded-md  w-full text-lg text-[#6F6C6C]'
@@ -104,7 +104,7 @@ const Index = () => {
                             />
                         </View>
                         <View className=' w-[300px] flex flex-row justify-between'>
-                            <View className='flex space-x-2 px-1 flex-row items-center'>
+                            <View className='flex gap-2 px-1 flex-row items-center'>
                                 <TouchableOpacity className='w-4 justify-center items-center' onPress={() => setIsChecked(!isChecked)}>
                                     <CheckBox name={isChecked ? "checkbox-passive" : "checkbox-active"} size={15} />
                                 </TouchableOpacity>
@@ -113,7 +113,7 @@ const Index = () => {
                             <Text className='text-md border-b text-[#6F6C6C] border-b-[#6F6C6C]'>Forget Password</Text>
                         </View>
                     </View>
-                    <View className='flex space-y-3 w-[300px]'>
+                    <View className='flex gap-3 w-[300px]'>
                         <TouchableOpacity className='bg-primary px-4 py-2 rounded-md ' onPress={() => handleLogin()}>
                             <Text className='text-white text-xl text-center'>Login</Text>
                         </TouchableOpacity>

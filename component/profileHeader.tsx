@@ -1,9 +1,10 @@
-import { View, Text, Image, TouchableOpacity, Modal } from 'react-native'
+import { View, Text, Image, TouchableOpacity, Modal, StatusBar } from 'react-native'
 import React, { useState } from 'react'
 import Icon from '@expo/vector-icons/MaterialIcons';
 import { useUser } from '@/context/userContext'
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-const HomeHeader = () => {
+const Header = () => {
     const { user, logout } = useUser();
 
     const [modalVisible, setModalVisible] = useState<boolean>(false);
@@ -13,7 +14,7 @@ const HomeHeader = () => {
             <View className="flex-row items-center">
                 <Image
                     source={require('../assets/images/devAssets/profile.jpg')}
-                    className="w-14 h-14 rounded-full"
+                    className="w-12 h-12 rounded-full"
                 />
                 <View className="ml-4">
                     <Text className="text-xl font-semibold">{user?.name}</Text>
@@ -23,10 +24,10 @@ const HomeHeader = () => {
             <TouchableOpacity onPress={() => setModalVisible(true)}>
                 <Icon name="logout" size={30} color="black" />
             </TouchableOpacity>
-            <Modal animationType='none' transparent={true} visible={modalVisible} >
+            <Modal animationType='none' transparent={true} visible={modalVisible}>
                 <View className='h-full w-full items-center justify-center relative'>
-                    <View className='bg-black opacity-40 blur-xl absolute h-full w-full'></View>
-                    <View className='bg-white space-y-3 rounded-xl w-2/3 py-5 px-4 items-center justify-center'>
+                    <SafeAreaView className='bg-gray-800 opacity-40 blur-xl absolute h-full w-full'></SafeAreaView>
+                    <View className='bg-white gap-3 rounded-xl w-2/3 p-5 items-center justify-center'>
                         <Text className='text-xl text-center font-medium'>Are You Sure you want to Log out ?</Text>
                         <TouchableOpacity onPress={() => { logout(); setModalVisible(false) }} className='bg-danger w-full py-2 rounded-xl'>
                             <Text className='text-lg text-white text-center font-medium'>Logout</Text>
@@ -36,9 +37,10 @@ const HomeHeader = () => {
                         </TouchableOpacity>
                     </View>
                 </View>
+                <StatusBar className='bg-gray-400' />
             </Modal>
         </View>
     )
 }
 
-export default HomeHeader
+export default Header;

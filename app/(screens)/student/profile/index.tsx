@@ -22,8 +22,8 @@ export default function Profile() {
                     </TouchableOpacity>
                 </View>
 
-                <View className="w-full absolute bottom-0 py-4 px-5 flex-col space-y-1 justify-between">
-                    <View className='flex-row items-center space-x-2'>
+                <View className="w-full absolute bottom-0 py-4 px-5 flex-col gap-1 justify-between">
+                    <View className='flex-row items-center gap-2'>
                         <Text className="text-2xl font-bold text-white">{user?.name}</Text>
                         <Text className="text-sm text-white">({user?.id})</Text>
                     </View>
@@ -31,7 +31,7 @@ export default function Profile() {
                 </View>
             </View>
 
-            <View className="p-4 space-y-3">
+            <View className="p-4 gap-3">
                 <TouchableOpacity onPress={() => router.push('/(screens)/student/profile/noDuesAccept')} className="flex-row justify-between items-center mb-4">
                     <Text className="text-lg font-medium">No dues Accepted</Text>
                     <View className="flex-row items-center">
@@ -54,7 +54,7 @@ export default function Profile() {
                 </View>
             </View>
 
-            <View className="px-4 pt-4 pb-10 bg-slate-100 rounded-t-3xl space-y-2">
+            <View className="px-4 pt-4 pb-10 bg-slate-100 rounded-t-3xl gap-2">
                 <TouchableOpacity className="flex-row justify-between items-center mb-4" onPress={() => router.push('/student/profile/marksheet')}>
                     <View className="flex-row items-center">
                         <FeatherIcons name='download' size={25} />

@@ -1,11 +1,8 @@
 import { useUser } from '@/context/userContext';
-import React from 'react';
 import { Image, LogBox, Pressable, Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-
-
+import '../global.css'
 const icon = require('../assets/images/icon.png');
-
 const Index = () => {
     LogBox.ignoreAllLogs(); // removing warning popup in preview.
     const { router } = useUser();
