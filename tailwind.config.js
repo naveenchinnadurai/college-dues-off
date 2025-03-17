@@ -4,7 +4,7 @@ const { getReactNavigationScreensConfig } = require('expo-router/build/getReactN
 module.exports = {
   content: [
     "./app/**/*.{ts,tsx}",
-    "./components/**/*.{ts,tsx}"
+    "./component/**/*.{ts,tsx}"
   ],
   presets: [require("nativewind/preset")],
   theme: {
@@ -18,6 +18,9 @@ module.exports = {
         },
         danger: {
           DEFAULT: '#FF4F4F'
+        },
+        sundhar:{
+          DEFAULT: '#464647'
         }
       },
     },

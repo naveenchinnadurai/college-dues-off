@@ -3,7 +3,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "dev": "expo start --clear",
+    "dev": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
@@ -17,6 +17,7 @@
     "@expo/vector-icons": "^14.0.0",
     "@fortawesome/react-native-fontawesome": "^0.3.2",
     "@react-navigation/native": "^6.0.2",
+    "axios": "^1.8.3",
     "babel-preset-expo": "^12.0.9",
     "expo": "^52.0.37",
     "expo-constants": "~17.0.7",

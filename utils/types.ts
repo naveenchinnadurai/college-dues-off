@@ -23,3 +23,8 @@ export interface Staff {
 export type studentRoutes = {
   home: undefined;
 };
+
+export interface subjects {
+  subCode: String;
+  subName: String
+}

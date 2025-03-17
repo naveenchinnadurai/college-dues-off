@@ -5,14 +5,14 @@ import { Image, StatusBar, Text, TextInput, TouchableOpacity, View } from 'react
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import CheckBox from 'react-native-vector-icons/Fontisto';
-
+import axios from 'axios';
 interface credentialType {
     rollNo: string;
     password: string
 }
 
 const Index = () => {
-    const { setUser, router } = useUser()
+    const { setUser, router, setSubjects } = useUser()
     const [credential, setCredential] = useState<credentialType>({
         rollNo: "",
         password: ""
@@ -46,16 +46,19 @@ const Index = () => {
         setCredential({ ...credential, [field]: value });
     };
 
-    const handleLogin = () => {
-        //console.log(credential); //checking log!
+    const handleLogin = async () => {
+        console.log(credential); //checking log!
+        const res = await axios.post('http://192.168.124.74:7000/api/v1/auth/student-login', { regNo: credential.rollNo, password: credential.password })
         setUser({
-            id: credential.rollNo,
-            name: "Swetha Kumar",
-            email: "07092004swethak@gmail.com",
+            id: res.data.student.register_no,
+            name: res.data.student.name,
+            email: res.data.student.email,
             type: "student",
-            department: "Agriculture Science",
+            department: res.data.student.dept,
             role: "student"
         })
+        const subjects = await axios.get(`http://192.168.124.74:7000/api/v1/students/subjects/${res.data.student.current_semester}`)
+        setSubjects(subjects.data.subjects)
         router.push('/(screens)/onboarding')
     };
 

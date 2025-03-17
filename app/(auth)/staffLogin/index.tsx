@@ -27,7 +27,7 @@ const Index = () => {
         console.log(credential); //checking log!
         setUser({
             id: '27392004',
-            name: "Naveen Chinnadurai",
+            name: "Dr.M.SAKTHIVEL",
             email: credential.email,
             type: "staff",
             department: "Computer Science",

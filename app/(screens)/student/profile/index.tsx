@@ -22,8 +22,8 @@ export default function Profile() {
                     </TouchableOpacity>
                 </View>
 
-                <View className="w-full absolute bottom-0 py-4 px-5 flex-col gap-1 justify-between">
-                    <View className='flex-row items-center gap-2'>
+                <View className="w-full absolute bottom-0 py-4 px-5 flex-col gap-1.5 justify-between">
+                    <View className='flex-col gap-1'>
                         <Text className="text-2xl font-bold text-white">{user?.name}</Text>
                         <Text className="text-sm text-white">({user?.id})</Text>
                     </View>

@@ -16,7 +16,7 @@ const RejectReasonScreen = () => {
     return (
         <View className="flex-1 bg-white p-4 justify-between">
             {/* Header */}
-            <Header text="Swetha Kumar" className="!justify-start ps-10"/>
+            <Header text="Akash K" className="!justify-start ps-10"/>
 
             {/* Input Box */}
             <View className="flex-row relative">
