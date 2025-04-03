@@ -1,0 +1,6 @@
+fastapi[standard]
+psycopg[binary,pool]
+sqlalchemy
+pyjwt
+python-dotenv
+passlib
