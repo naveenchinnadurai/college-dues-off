@@ -5,56 +5,85 @@ import React from 'react';
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from 'react-native-vector-icons/Feather';
-
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const Index = () => {
-  const { router, subjects } = useUser()
+  const { router, subjects, user } = useUser();
+
   return (
-    <SafeAreaView>
-      <ScrollView className={`p-3`}>
+    <SafeAreaView className="flex-1 bg-white">
+      <ScrollView className="p-4 gap-6">
+        {/* Profile Header */}
         <Header />
-        <View className='flex gap-2 pt-3'>
-          <Text className='text-xl text-start'>College Updates</Text>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row">
-            {
-              [1, 2, 3, 4, 5, 6].map((e, i) => {
-                return (
-                  <StoryCard i={i} key={i} />
-                )
-              })
-            }
+
+        {/* College Updates */}
+        <View className="gap-3">
+          <Text className="text-2xl font-semibold text-gray-800 mt-2">College Updates</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} className="flex-row gap-3">
+            {[1, 2, 3, 4, 5].map((e, i) => (
+              <StoryCard i={i} key={i} />
+            ))}
           </ScrollView>
         </View>
-        <View className='pt-3 flex gap-2 pb-5'>
-          <View className='flex-row items-center gap-2'>
-            <Text className="text-2xl font-medium">No Due Request</Text>
-            <Feather name='refresh-cw' size={16} color={"black"}/>
-          </View>
-          {
-            subjects?.map((e, i) => {
-              return (
-                <View className="flex-row justify-around items-center bg-white p-4 rounded-lg shadow-md overflow-hidden" key={i}>
-                  <View className="w-4/6 flex-row items-center gap-2">
-                    <Image
-                      source={require('../../../../assets/images/devAssets/subImage1.png')}
-                      className="w-12 h-12 rounded-full"
-                    />
-                    <View className="w-2/3 flex flex-wrap">
-                      <Text className="text-lg font-bold ">{e.subCode}</Text>
-                      <Text className="text-gray-500 w-full leading-xl">{e.subName}</Text>
-                    </View>
-                  </View>
-                  <TouchableOpacity className="w-fit bg-primary px-5 py-3 rounded-lg" onPress={() => router.push('/student/home/request')}>
-                    <Text className="text-white font-bold">Request</Text>
-                  </TouchableOpacity>
-                </View>
-              )
-            })
-          }
-        </View>
-      </ScrollView>
-    </SafeAreaView >
-  )
-}
 
-export default Index
+        {/* Attendance Overview */}
+        <View className="bg-indigo-100 rounded-xl p-5 my-3 shadow-md">
+          <Text className="text-gray-700 text-lg font-semibold mb-2">Attendance Overview</Text>
+          <Text className="text-4xl font-bold text-indigo-800">
+            {'92'}%
+          </Text>
+          <Text className="text-sm text-gray-500">Overall Attendance This Semester</Text>
+        </View>
+
+
+        {/* Quick Action Buttons */}
+        <View className="gap-3">
+          <Text className="text-lg font-medium text-gray-800">Quick Actions</Text>
+          <View className="flex-row justify-between">
+            <ActionButton
+              label="No Due"
+              icon="assignment-turned-in"
+              onPress={() => router.push('/student/home/noDueRequest')}
+              color="bg-green-600"
+            />
+            <ActionButton
+              label="On-Duty"
+              icon="event-available"
+              onPress={() => router.push('/student/home/ondutyRequest')}
+              color="bg-blue-500"
+            />
+            <ActionButton
+              label="Bonafide"
+              icon="receipt"
+              onPress={() => router.push('/student/home/bonafideRequest')} color="bg-purple-600"
+            />
+          </View>
+        </View>
+
+
+      </ScrollView>
+    </SafeAreaView>
+  );
+};
+
+const ActionButton = ({
+  label,
+  icon,
+  onPress,
+  color,
+}: {
+  label: string;
+  icon: string;
+  onPress: () => void;
+  color: string;
+}) => (
+  <TouchableOpacity
+    className={`w-[30%] ${color} p-4 rounded-xl justify-center items-center gap-1`}
+    onPress={onPress}
+  >
+    <MaterialIcons name={icon} size={26} color="white" />
+    <Text className="text-white text-sm font-semibold">{label}</Text>
+  </TouchableOpacity>
+);
+
+export default Index;

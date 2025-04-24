@@ -1,8 +1,7 @@
 import React from 'react';
 import { Stack } from 'expo-router';
-import 'react-native-reanimated';
 
-export default function NotificationLayout() {
+const NotificationLayout = () => {
 
     return (
         <Stack screenOptions={{ headerShown: false }}>
@@ -10,3 +9,5 @@ export default function NotificationLayout() {
         </Stack>
     );
 }
+
+export default NotificationLayout;

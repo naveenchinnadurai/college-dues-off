@@ -48,17 +48,26 @@ const Index = () => {
 
     const handleLogin = async () => {
         console.log(credential); //checking log!
-        const res = await axios.post('http://192.168.124.74:7000/api/v1/auth/student-login', { regNo: credential.rollNo, password: credential.password })
+        // const res = await axios.post('http://192.168.124.74:7000/api/v1/auth/student-login', { regNo: credential.rollNo, password: credential.password })
+        // setUser({
+        //     id: res.data.student.register_no,
+        //     name: res.data.student.name,
+        //     email: res.data.student.email,
+        //     type: "student",
+        //     department: res.data.student.dept,
+        //     role: "student"
+        // })
+
         setUser({
-            id: res.data.student.register_no,
-            name: res.data.student.name,
-            email: res.data.student.email,
+            id: credential.rollNo,
+            name: "Naveen Chinnadurai",
+            email: "dev.iamnaveen@gmail.com",
             type: "student",
-            department: res.data.student.dept,
+            department: "Computer Science",
             role: "student"
         })
-        const subjects = await axios.get(`http://192.168.124.74:7000/api/v1/students/subjects/${res.data.student.current_semester}`)
-        setSubjects(subjects.data.subjects)
+        // const subjects = await axios.get(`http://192.168.124.74:7000/api/v1/students/subjects/${res.data.student.current_semester}`)
+        // setSubjects(subjects.data.subjects)
         router.push('/(screens)/onboarding')
     };
 

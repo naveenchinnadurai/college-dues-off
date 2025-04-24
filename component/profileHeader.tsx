@@ -10,7 +10,7 @@ const Header = () => {
     const [modalVisible, setModalVisible] = useState<boolean>(false);
 
     return (
-        <View className="flex-row items-center justify-between w-full py-2">
+        <View className="flex-row items-center justify-between w-full px-2 py-3 bg-white shadow-slate-600 shadow-xl rounded-2xl">
             <View className="flex-row items-center">
                 <Image
                     source={require('../assets/images/devAssets/profile.jpg')}
@@ -22,7 +22,7 @@ const Header = () => {
                 </View>
             </View>
             <TouchableOpacity onPress={() => setModalVisible(true)}>
-                <Icon name="logout" size={30} color="black" />
+                <Icon name="logout" size={30} color="red" />
             </TouchableOpacity>
             <Modal animationType='none' transparent={true} visible={modalVisible}>
                 <View className='h-full w-full items-center justify-center relative'>

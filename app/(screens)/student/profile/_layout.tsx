@@ -1,8 +1,7 @@
 import React from 'react';
 import { Stack } from 'expo-router';
-import 'react-native-reanimated';
 
-export default function MarkLayout() {
+const ProfileLayout = () => {
 
     return (
         <Stack screenOptions={{ headerShown: false }}>
@@ -14,3 +13,5 @@ export default function MarkLayout() {
         </Stack>
     );
 }
+
+export default ProfileLayout; 
