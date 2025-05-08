@@ -13,7 +13,7 @@ This project is a high-performance FastAPI backend tailored for integration with
 - [Getting Started](#getting-started)
 - [API Documentation](#api-documentation)
 - [Environment Variables](#environment-variables)
-- [Scripts](#scripts)
+- [Scripts](## 📜 Scripts )
 - [Dependencies](#dependencies)
 - [Contributing](#contributing)
 - [License](#license)
