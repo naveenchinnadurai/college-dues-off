@@ -1,0 +1,8 @@
+fastapi[standard]
+psycopg[binary,pool]
+sqlalchemy
+pyjwt
+python-dotenv
+passlib[bcrypt]
+pydantic==2.9.2
+pydantic-core==2.23.4
