@@ -1,5 +1,4 @@
 
-```markdown
 # ⚡ FastAPI Backend for React Native App
 
 This project is a high-performance FastAPI backend tailored for integration with a React Native mobile app. It uses `uv` for dependency management and leverages a robust and modern set of libraries for scalability, security, and performance.
@@ -209,5 +208,5 @@ Questions? Contact us at [dev.iamkarthickeyan.com](mailto:your.email@example.com
 
 ---
 
-```
+
 
