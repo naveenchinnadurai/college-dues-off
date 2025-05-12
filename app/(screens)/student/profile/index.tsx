@@ -5,6 +5,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import FeatherIcons from 'react-native-vector-icons/Feather';
 import IconDisplay from 'react-native-vector-icons/FontAwesome6';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+
 
 export default function Profile() {
     const { user, router } = useUser()
@@ -12,6 +14,9 @@ export default function Profile() {
     return (
         <SafeAreaView className="flex-1 bg-white justify-between">
             <View className="relative bg-gray-800 rounded-b-3xl overflow-hidden h-[45%]">
+                <TouchableOpacity className="absolute top-5 right-5">
+                    <MaterialIcon name='circle-edit-outline' size={20} color="#ffff" />
+                </TouchableOpacity>
                 <Image
                     source={require('../../../../assets/images/devAssets/profile.jpg')}
                     className="absolute w-full h-full object-cover opacity-40"

@@ -122,7 +122,7 @@ const OnDutyRequest = () => {
                 <TouchableOpacity onPress={() => router.back()}>
                     <AntDesign name="arrowleft" size={26} color="black" />
                 </TouchableOpacity>
-                <Text className="text-2xl font-bold text-gray-800">On-Duty Requests</Text>
+                <Text className="text-2xl font-bold text-gray-800 h-6">On-Duty Requests</Text>
             </View>
 
             <View className="flex-row gap-2 mb-3">

@@ -1,10 +1,10 @@
+import { useUser } from '@/context/userContext';
+import API from '@/utils/api';
+import { Link } from 'expo-router';
 import React, { useState } from 'react';
+import { Image, SafeAreaView, StatusBar, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import Staff from 'react-native-vector-icons/FontAwesome5';
 import CheckBox from 'react-native-vector-icons/Fontisto';
-import { Link } from 'expo-router';
-import { Image } from 'react-native';
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView, StatusBar } from 'react-native'
-import { useUser } from '@/context/userContext';
 
 interface credentialType {
     email: string;
@@ -23,17 +23,35 @@ const Index = () => {
         setCredential({ ...credential, [field]: value });
     };
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         console.log(credential); //checking log!
         setUser({
-            id: '27392004',
-            name: "Dr.M.SAKTHIVEL",
-            email: credential.email,
+            id: '612874124',
+            name: 'Naveen Chinnadurai',
+            email: 'dev.iamnaveen@gmail.com',
             type: "staff",
             department: "Computer Science",
-            role: "Assistant Proffessor - CSE"
+            role: "staff"
         })
         router.push('/(screens)/onboarding')
+        // try {
+        //     const res = await API.post('/auth/staff/login', { email: credential.email, password: credential.password })
+
+        //     console.log(res.data.data.user);
+        //     if (res.status) {
+        //         setUser({
+        //             id: res.data.data.user.id,
+        //             name: res.data.data.user.name,
+        //             email: res.data.data.user.email,
+        //             type: "staff",
+        //             department: "Computer Science",
+        //             role: "Assistant Proffessor - CSE"
+        //         })
+        //         router.push('/(screens)/onboarding')
+        //     }
+        // } catch (error: any) {
+        //     console.log("Error in login: ", error);
+        // }
     };
 
     return (

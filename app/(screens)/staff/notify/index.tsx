@@ -1,24 +1,21 @@
+import Header from '@/component/header';
 import { notifications } from '@/constants/subjects';
 import { useUser } from '@/context/userContext';
+import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import FABrand from 'react-native-vector-icons/FontAwesome5';
-import FAIcon from 'react-native-vector-icons/FontAwesome6';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export default function Notifications() {
   const { router } = useUser()
   return (
-    <SafeAreaView className="flex-1 bg-white p-5 ">
-      <View className='relative flex flex-row justify-center items-center w-full'>
-        <TouchableOpacity className='absolute left-0 ' onPress={() => router.push('/(screens)/staff/home')}>
-          <FAIcon name='arrow-left' size={25} />
-        </TouchableOpacity>
-        <Text className='text-2xl font-medium'>Notifications</Text>
-      </View>
+    <SafeAreaView className="flex-1 bg-white px-5 ">
+      <Header text="Notifications" className="" />
+      <StatusBar style='dark'/>
       <View className="flex-row items-center bg-gray-200 rounded-xl px-3 my-3 gap-2 mt-5">
         <Icon name='search' size={20} />
         <TextInput placeholder="Search Your Notification..." className="flex-1" />

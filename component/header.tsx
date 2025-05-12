@@ -4,18 +4,31 @@ import Icon from 'react-native-vector-icons/FontAwesome6';
 import { useNavigation } from 'expo-router';
 
 interface Props {
-    text: String;
-    className?: String
+    text?: String;
+    iconStyle?: {
+        size?: number;
+        color?: string;
+    };
+    className?: String;
+    children?: ReactNode;
 }
 
 export default function Header(props: Props) {
     const navigate = useNavigation();
     return (
         <View className={`flex-row justify-center items-center py-2 relative ${props.className}`}>
-            <TouchableOpacity onPress={() => navigate.goBack()} className='absolute left-0' >
-                <Icon name='arrow-left' size={25} />
+            <TouchableOpacity onPress={() => navigate.goBack()} className={`absolute left-0 top-2`} >
+                <Icon name='arrow-left' size={props.iconStyle?.size || 25} color={props.iconStyle?.color || 'black'}/>
             </TouchableOpacity>
-            <Text className="text-2xl font-bold w-fit">{props.text}</Text>
+            {
+                props.children ? (
+                    <>
+                        {props.children}
+                    </>
+                ) : (
+                    <Text className='text-2xl font-bold'>{props.text}</Text>
+                )
+            }
         </View>
     )
 }

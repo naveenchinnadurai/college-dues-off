@@ -1,11 +1,12 @@
+import Splash from '@/app/splash';
 import { useUser } from '@/context/userContext';
+import API from '@/utils/api';
 import { Link } from 'expo-router';
 import React, { useState } from 'react';
 import { Image, StatusBar, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import CheckBox from 'react-native-vector-icons/Fontisto';
-import axios from 'axios';
 interface credentialType {
     rollNo: string;
     password: string
@@ -48,27 +49,32 @@ const Index = () => {
 
     const handleLogin = async () => {
         console.log(credential); //checking log!
-        // const res = await axios.post('http://192.168.124.74:7000/api/v1/auth/student-login', { regNo: credential.rollNo, password: credential.password })
-        // setUser({
-        //     id: res.data.student.register_no,
-        //     name: res.data.student.name,
-        //     email: res.data.student.email,
-        //     type: "student",
-        //     department: res.data.student.dept,
-        //     role: "student"
-        // })
 
-        setUser({
-            id: credential.rollNo,
-            name: "Naveen Chinnadurai",
-            email: "dev.iamnaveen@gmail.com",
-            type: "student",
-            department: "Computer Science",
-            role: "student"
-        })
-        // const subjects = await axios.get(`http://192.168.124.74:7000/api/v1/students/subjects/${res.data.student.current_semester}`)
-        // setSubjects(subjects.data.subjects)
-        router.push('/(screens)/onboarding')
+        //Student Login API 
+        try {
+            // const res = await API.post('/auth/student/login', { regNo: credential.rollNo, password: credential.password })
+
+            // setUser({
+            //     id: res.data.data.student.register_no,
+            //     name: res.data.data.student.name,
+            //     email: res.data.data.student.email,
+            //     type: "student",
+            //     department: res.data.data.student.dept,
+            //     role: "student"
+            // })
+
+            setUser({
+                    id: '612874124',
+                    name: 'Naveen Chinnadurai',
+                    email: 'dev.iamnaveen@gmail.com',
+                    type: "student",
+                    department: "Computer Science",
+                    role: "student"
+                })
+            router.push('/(screens)/onboarding')
+        } catch (error: any) {
+            console.log("Error in login: ", error);
+        }
     };
 
 

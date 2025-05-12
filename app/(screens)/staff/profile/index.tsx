@@ -66,6 +66,7 @@ export default function StaffProfile() {
 
         <TouchableOpacity
           className="flex-row justify-between items-center"
+          onPress={()=>router.push('/(screens)/staff/profile/faqs')}
         >
           <View className="flex-row items-center gap-4">
             <FeatherIcons name="help-circle" size={22} />
