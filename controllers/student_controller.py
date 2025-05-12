@@ -10,8 +10,9 @@ from .schemas import (
     StudentResponse,
     NoDuesRequestResponse
 )
-from db.models import Student, NoDuesRequest, Subject, ClassStaffSubject
+from db.models import Student, NoDuesRequest, ClassStaffSubject, BonafideRequest, AdvisorBonafideApproval, HODBonafideApproval, RequestStatus, OnDutyRequest, AdvisorOnDutyApproval, HODOnDutyApproval
 from db.database import get_db
+from uuid import UUID
 from datetime import datetime
 
 db_type = Annotated[AsyncSession, Depends(get_db)]
@@ -98,3 +99,211 @@ async def view_no_dues(id: str, db: db_type):
     return JSONResponse(
         content=jsonable_encoder([NoDuesRequestResponse.model_validate(r) for r in requests])
     )
+    
+# ----------- Create Bonafide Request ----------- #
+
+async def create_bonafide_request(student_id: str, bonafide_type: str, purpose: str, message: str, db: AsyncSession):
+    # Fetch student with class and advisor info
+    result = await db.execute(
+        select(Student)
+        .filter(Student.reg_no == student_id)
+        .options(selectinload(Student.class_).selectinload("advisor_obj"))
+    )
+    student = result.scalars().first()
+
+    if not student or not student.class_ or not student.class_.advisor:
+        raise HTTPException(status_code=404, detail="Student or advisor not found")
+
+    # Create bonafide request
+    bonafide_request = BonafideRequest(
+        bonafide_type=bonafide_type,
+        purpose=purpose,
+        message=message,
+        student_id=student_id,
+        created_on=datetime.now()
+    )
+    db.add(bonafide_request)
+    await db.flush()  # to get bonafide_request.id
+
+    # Create advisor approval
+    advisor_approval = AdvisorBonafideApproval(
+        bonafide_id=bonafide_request.id,
+        staff_id=student.class_.advisor,
+        status=RequestStatus.Pending,
+        updated_on=datetime.now(),
+        message=""
+    )
+    db.add(advisor_approval)
+    await db.commit()
+    return {"message": "Bonafide request submitted with advisor approval pending"}
+
+# ----------- Generate HOD Approval ----------- #
+
+async def generate_hod_approval(bonafide_id: UUID, db: AsyncSession):
+    # Get bonafide + advisor approval
+    result = await db.execute(
+        select(BonafideRequest)
+        .filter(BonafideRequest.id == bonafide_id)
+        .options(selectinload(BonafideRequest.student).selectinload(Student.class_).selectinload("department_obj"))
+    )
+    bonafide = result.scalars().first()
+
+    if not bonafide:
+        raise HTTPException(status_code=404, detail="Bonafide request not found")
+
+    advisor_status = bonafide.advisor_approval[0].status if bonafide.advisor_approval else None
+    if advisor_status != RequestStatus.Approved:
+        raise HTTPException(status_code=400, detail="Advisor approval not yet approved")
+
+    hod_id = bonafide.student.class_.department_obj.HOD
+    if not hod_id:
+        raise HTTPException(status_code=404, detail="HOD not assigned")
+
+    # Check if HOD approval already exists
+    result = await db.execute(
+        select(HODBonafideApproval).filter(HODBonafideApproval.bonafide_id == bonafide_id)
+    )
+    if result.scalars().first():
+        raise HTTPException(status_code=400, detail="HOD approval already exists")
+
+    # Create HOD approval
+    hod_approval = HODBonafideApproval(
+        bonafide_id=bonafide_id,
+        staff_id=hod_id,
+        status=RequestStatus.Pending,
+        updated_on=datetime.now(),
+        message=""
+    )
+    db.add(hod_approval)
+    await db.commit()
+    return {"message": "HOD approval created successfully"}
+
+# ----------- Get Bonafide Approval Status ----------- #
+
+async def get_bonafide_approval_status(bonafide_id: UUID, db: AsyncSession):
+    result = await db.execute(
+        select(BonafideRequest)
+        .filter(BonafideRequest.id == bonafide_id)
+        .options(
+            selectinload(BonafideRequest.advisor_approval),
+            selectinload(BonafideRequest.hod_approval)
+        )
+    )
+    bonafide = result.scalars().first()
+    if not bonafide:
+        raise HTTPException(status_code=404, detail="Bonafide request not found")
+
+    advisor = bonafide.advisor_approval[0] if bonafide.advisor_approval else None
+    hod = bonafide.hod_approval[0] if bonafide.hod_approval else None
+
+    return {
+        "advisor_status": advisor.status if advisor else "Not created",
+        "hod_status": hod.status if hod else "Not created"
+    }
+
+
+# ----------- Create On Duty Request ----------- #
+
+async def create_on_duty_request(student_id: str, reason: str, url: str, from_date: datetime, to_date: datetime, db: AsyncSession):
+    # Fetch student with class and advisor info
+    result = await db.execute(
+        select(Student)
+        .filter(Student.reg_no == student_id)
+        .options(selectinload(Student.class_).selectinload("advisor_obj"))
+    )
+    student = result.scalars().first()
+
+    if not student or not student.class_ or not student.class_.advisor:
+        raise HTTPException(status_code=404, detail="Student or advisor not found")
+
+    # Create on duty request
+    on_duty_request = OnDutyRequest(
+        reason=reason,
+        url=url,
+        from_date=from_date,
+        to_date=to_date,
+        student_id=student_id,
+        created_on=datetime.now()
+    )
+    db.add(on_duty_request)
+    await db.flush()  # to get on_duty_request.id
+
+    # Create advisor approval
+    advisor_approval = AdvisorOnDutyApproval(
+        onduty_id=on_duty_request.id,
+        staff_id=student.class_.advisor,
+        status=RequestStatus.Pending,
+        updated_on=datetime.now(),
+        message=""
+    )
+    db.add(advisor_approval)
+    await db.commit()
+
+    return {"message": "On duty request submitted with advisor approval pending"}
+
+# ----------- Generate HOD Approval for On Duty ----------- #
+
+async def generate_hod_approval_for_on_duty(on_duty_id: UUID, db: AsyncSession):
+    # Get on duty request + advisor approval
+    result = await db.execute(
+        select(OnDutyRequest)
+        .filter(OnDutyRequest.id == on_duty_id)
+        .options(selectinload(OnDutyRequest.student).selectinload(Student.class_).selectinload("department_obj"))
+    )
+    on_duty_request = result.scalars().first()
+
+    if not on_duty_request:
+        raise HTTPException(status_code=404, detail="On duty request not found")
+
+    advisor_status = on_duty_request.advisor_approval[0].status if on_duty_request.advisor_approval else None
+    if advisor_status != RequestStatus.Approved:
+        raise HTTPException(status_code=400, detail="Advisor approval not yet approved")
+
+    hod_id = on_duty_request.student.class_.department_obj.HOD
+    if not hod_id:
+        raise HTTPException(status_code=404, detail="HOD not assigned")
+
+    # Check if HOD approval already exists
+    result = await db.execute(
+        select(HODOnDutyApproval).filter(HODOnDutyApproval.onduty_id == on_duty_id)
+    )
+    if result.scalars().first():
+        raise HTTPException(status_code=400, detail="HOD approval already exists")
+
+    # Create HOD approval
+    hod_approval = HODOnDutyApproval(
+        onduty_id=on_duty_id,
+        staff_id=hod_id,
+        status=RequestStatus.Pending,
+        updated_on=datetime.now(),
+        message=""
+    )
+    db.add(hod_approval)
+    await db.commit()
+
+    return {"message": "HOD approval created successfully"}
+
+# ----------- Get On Duty Approval Status ----------- #
+
+async def get_on_duty_approval_status(on_duty_id: UUID, db: AsyncSession):
+    result = await db.execute(
+        select(OnDutyRequest)
+        .filter(OnDutyRequest.id == on_duty_id)
+        .options(
+            selectinload(OnDutyRequest.advisor_approval),
+            selectinload(OnDutyRequest.hod_approval)
+        )
+    )
+    on_duty_request = result.scalars().first()
+    if not on_duty_request:
+        raise HTTPException(status_code=404, detail="On duty request not found")
+
+    advisor = on_duty_request.advisor_approval[0] if on_duty_request.advisor_approval else None
+    hod = on_duty_request.hod_approval[0] if on_duty_request.hod_approval else None
+
+    return {
+        "advisor_status": advisor.status if advisor else "Not created",
+        "hod_status": hod.status if hod else "Not created"
+    }
+
+
