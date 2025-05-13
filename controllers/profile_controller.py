@@ -87,3 +87,4 @@ async def create_subject(
                 "data": jsonable_encoder(SubjectResponse.model_validate(new_subject))},
             status_code=201
         )
+

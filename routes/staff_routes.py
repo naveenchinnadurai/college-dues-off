@@ -2,7 +2,7 @@ from fastapi import APIRouter, HTTPException, Depends
 from controllers.staff_controller import create_staff, get_all_staff, view_no_dues_requests, manage_no_dues_requests, insert_staff_data, create_announcement #,get_staff_by_id, update_staff, delete_staff
 from utils.auth_bearer import JWTBearer
 
-staff_route = APIRouter(prefix="/staff", tags=["staff"]) # , dependencies=[Depends(JWTBearer())],
+staff_route = APIRouter(prefix="/staff", tags=["staff"]) # ,dependencies=[Depends(JWTBearer())],
 
 staff_route.add_api_route(
     path="/create",

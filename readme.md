@@ -54,42 +54,42 @@ This project is a high-performance FastAPI backend tailored for integration with
 
 ```
 
-FastAPI-Backend/
-│
-├── controllers/            # Controllers for handling business logic
-│   ├── auth_controller.py  # Authentication logic
-│   ├── schemas.py          # Pydantic models for request validation
-│   ├── staff_controller.py # Staff management logic
-│   └── student_controller.py # Student management logic
-│
-├── db/                     # Database utilities and models
-│   ├── database.py         # Database connection
-│   ├── init_db.py          # Database initialization script
-│   ├── models.py           # SQLAlchemy models
-│   └── models_old_v1.py    # Older version of models (backup)
-│
-├── routes/                 # API routes for each resource
-│   ├── auth_routes.py      # Authentication related routes
-│   ├── staff_routes.py     # Staff-related API routes
-│   └── student_routes.py   # Student-related API routes
-│
-├── utils/                  # Utility functions
-│   ├── auth_bearer.py      # Bearer token handling
-│   ├── auth_handler.py     # Authentication handling logic
-│   └── password_utils.py   # Password hashing and utils
-│
-├── .env                    # Environment variables
-├── .gitignore              # Git ignore file
-├── hash.py                 # Custom hash logic (if any) script for hashing 
-├── main.py                 # FastAPI app instance
-├── pyproject.toml          # Project metadata and dependencies
-├── readme.md               # Project documentation
-├── requirements.in         # Dependencies for installation
-├── requirements.txt        # Final dependencies (locked versions)
-├── requirementsclone.txt   # Backup of requirements (older version)
-└── uv.lock                 # uvicorn lock file for fast deployments
+FastAPI-Backend/ \
+│\
+├── controllers/            # Controllers for handling business logic \
+│   ├── auth_controller.py  # Authentication logic\
+│   ├── schemas.py          # Pydantic models for request validation \
+│   ├── staff_controller.py # Staff management logic \
+│   └── student_controller.py # Student management logic \
+│ \
+├── db/                     # Database utilities and models \
+│   ├── database.py         # Database connection \
+│   ├── init_db.py          # Database initialization script \
+│   ├── models.py           # SQLAlchemy models\
+│   └── models_old_v1.py    # Older version of models (backup) \
+│\
+├── routes/                 # API routes for each resource \
+│   ├── auth_routes.py      # Authentication related routes \
+│   ├── staff_routes.py     # Staff-related API routes \
+│   └── student_routes.py   # Student-related API routes \
+│\
+├── utils/                  # Utility functions \
+│   ├── auth_bearer.py      # Bearer token handling \
+│   ├── auth_handler.py     # Authentication handling logic \
+│   └── password_utils.py   # Password hashing and utils \
+│\
+├── .env                    # Environment variables \
+├── .gitignore              # Git ignore file \
+├── hash.py                 # Custom hash logic (if any) script for hashing \ 
+├── main.py                 # FastAPI app instance \
+├── pyproject.toml          # Project metadata and dependencies \
+├── readme.md               # Project documentation \
+├── requirements.in         # Dependencies for installation \
+├── requirements.txt        # Final dependencies (locked versions) \
+├── requirementsclone.txt   # Backup of requirements (older version) \
+└── uv.lock                 # uvicorn lock file for fast deployments \
 
-````
+```
 
 ---
 

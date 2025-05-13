@@ -2,7 +2,7 @@ from fastapi import APIRouter, Depends
 from controllers.student_controller import get_all_students, get_student_by_id, update_student, request_no_dues, view_no_dues
 from utils.auth_bearer import JWTBearer
 
-student_route = APIRouter(prefix="/student",dependencies=[Depends(JWTBearer())], tags=["student"]) #  
+student_route = APIRouter(prefix="/student",  tags=["student"]) #  dependencies=[Depends(JWTBearer())],
 
 student_route.add_api_route(
     path="/",
