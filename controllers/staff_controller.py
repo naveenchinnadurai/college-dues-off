@@ -5,9 +5,11 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from typing import List, Annotated
 from .schemas import StaffCreate, StaffResponse , NoDuesRequestResponse, SubjectCreate, SubjectResponse, SubjectAssignmentRequest
-from db.models import Staff, NoDuesRequest, ClassStaffSubject, Subject, Class
+from db.models import Staff, NoDuesRequest, ClassStaffSubject, Subject, Class, Announcement
+from .schemas import AnnouncementCreate, AnnouncementResponse
 from db.database import get_db, engine
 from utils.password_utils import hash_password
+from uuid import UUID
 from io import BytesIO
 import pandas as pd
 
@@ -155,7 +157,24 @@ async def manage_no_dues_requests(
         return JSONResponse(
             content=jsonable_encoder(NoDuesRequestResponse.model_validate(request))
         )
+    
+async def create_announcement(
+    id: UUID, 
+    announcement_data: AnnouncementCreate,
+    db: db_type
+):
+    async with db as session:
+        staff = await session.execute(select(Staff).filter(Staff.id == id))
+        staff = staff.scalars().first()
+        if not staff:
+            raise HTTPException(status_code=404, detail="Staff not found")
         
+        announcement = Announcement(**announcement_data.model_dump(),author=staff.id)
+        session.add(announcement)
+        await session.commit()
+        return JSONResponse(
+            content=jsonable_encoder(AnnouncementResponse.model_validate(announcement))
+        )
         
 # async def get_staff_by_id(id: str, db: db_type):
 #     with db as session:

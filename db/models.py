@@ -4,9 +4,16 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship, backref
 from sqlalchemy.ext.associationproxy import association_proxy
 from sqlalchemy.dialects.postgresql import UUID
-from db.database import Base,engine
+from db.database import Base
+from datetime import datetime
 import enum
 import uuid
+import pytz
+
+def get_ist_time():
+    utc_now = datetime.utcnow()
+    ist_now = pytz.utc.localize(utc_now).astimezone(pytz.timezone("Asia/Kolkata"))
+    return ist_now
 
 # Enums
 class RequestStatus(enum.Enum):
@@ -46,6 +53,7 @@ class Staff(Base):
     name = Column(String, nullable=False)
     password = Column(String, nullable=False)
     role = Column(String)
+    # department = Column(UUID(as_uuid=True), ForeignKey("department.id"))
     class_staff_links = relationship("ClassStaffSubject", back_populates="staff", cascade="all, delete-orphan")
     subjects = association_proxy('class_staff_links', 'subject',creator=lambda subject: ClassStaffSubject(subject=subject))
     classes = association_proxy('class_staff_links', 'class_',creator=lambda class_: ClassStaffSubject(class_=class_))
@@ -58,7 +66,7 @@ class Class(Base):
     id = Column(String, primary_key=True)
     advisor = Column(UUID(as_uuid=True), ForeignKey("staffs.id"), unique=True)
     semester = Column(Integer)
-    department = Column(UUID(as_uuid=True), ForeignKey("department.id"))
+    department = Column(UUID(as_uuid=True), ForeignKey("department.id"), nullable=True)
     year = Column(String)
     batch = Column(String)
     
@@ -115,7 +123,7 @@ class NoDuesRequest(Base):
     subject_id = Column(UUID(as_uuid=True), ForeignKey("subjects.id"))
     staff_id = Column(UUID(as_uuid=True), ForeignKey("staffs.id"))
     message = Column(Text)
-    created_on = Column(DateTime)
+    created_on = Column(DateTime(timezone=True), default=datetime.utcnow)
     
     student = relationship("Student", back_populates="no_dues_requests")
     subject = relationship("Subject", back_populates="no_dues_requests")
@@ -128,7 +136,7 @@ class BonafideRequest(Base):
     purpose = Column(String)
     message = Column(String)
     student_id = Column(String, ForeignKey("students.reg_no"))
-    created_on = Column(DateTime)
+    created_on = Column(DateTime, default=datetime.utcnow)
     
     student = relationship("Student", back_populates="bonafide_requests")
     advisor_approval = relationship("AdvisorBonafideApproval", back_populates="bonafide_request", cascade="all, delete-orphan")
@@ -143,7 +151,7 @@ class OnDutyRequest(Base):
     from_date = Column(Date)
     to_date = Column(Date)
     student_id = Column(String, ForeignKey("students.reg_no"))
-    created_on = Column(DateTime)
+    created_on = Column(DateTime, default=datetime.utcnow)
     
     student = relationship("Student", back_populates="onduty_requests")
     advisor_approval = relationship("AdvisorOnDutyApproval", back_populates="onduty_request", cascade="all, delete-orphan")
@@ -155,7 +163,7 @@ class AdvisorOnDutyApproval(Base):
     onduty_id = Column(UUID(as_uuid=True), ForeignKey("onduty_requests.id"), primary_key=True)
     staff_id = Column(UUID(as_uuid=True), ForeignKey("staffs.id"), primary_key=True)
     status = Column(Enum(RequestStatus),default=RequestStatus.Pending)
-    updated_on = Column(DateTime)
+    updated_on = Column(DateTime, default=datetime.utcnow)
     message = Column(Text)
 
     onduty_request = relationship("OnDutyRequest", back_populates="advisor_approval")
@@ -176,7 +184,7 @@ class HODOnDutyApproval(Base):
     onduty_id = Column(UUID(as_uuid=True), ForeignKey("onduty_requests.id"), primary_key=True)
     staff_id = Column(UUID(as_uuid=True), ForeignKey("staffs.id"), primary_key=True)
     status = Column(Enum(RequestStatus),default=RequestStatus.Pending)
-    updated_on = Column(DateTime)
+    updated_on = Column(DateTime, default=datetime.utcnow)
     message = Column(Text)
     
     onduty_request = relationship("OnDutyRequest", back_populates="hod_approval")
@@ -188,7 +196,7 @@ class HODBonafideApproval(Base):
     staff_id = Column(UUID(as_uuid=True), ForeignKey("staffs.id"), primary_key=True)
     status = Column(Enum(RequestStatus),default=RequestStatus.Pending)
     message = Column(Text)
-    updated_on = Column(DateTime)
+    updated_on = Column(DateTime, default=datetime.utcnow)
     
     
     bonafide_request = relationship("BonafideRequest", back_populates="hod_approval")
@@ -210,3 +218,12 @@ class InternalMark(Base):
     __table_args__ = (
     PrimaryKeyConstraint('student_id', 'subject_id', 'internal_name'),
 )
+
+class Announcement(Base):
+    __tablename__ = "announcements"
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    title = Column(String)
+    content = Column(String)
+    created_on = Column(DateTime(timezone=True), default=get_ist_time())
+    author = Column(UUID(as_uuid=True), ForeignKey("staffs.id"))
+    staff = relationship("Staff", backref="announcements")

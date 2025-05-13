@@ -8,7 +8,8 @@ from typing import Annotated
 from .schemas import (
     StudentCreate,
     StudentResponse,
-    NoDuesRequestResponse
+    NoDuesRequestResponse,
+    OndutyRequestBase
 )
 from db.models import Student, NoDuesRequest, ClassStaffSubject, BonafideRequest, AdvisorBonafideApproval, HODBonafideApproval, RequestStatus, OnDutyRequest, AdvisorOnDutyApproval, HODOnDutyApproval
 from db.database import get_db
@@ -204,7 +205,7 @@ async def get_bonafide_approval_status(bonafide_id: UUID, db: AsyncSession):
 
 # ----------- Create On Duty Request ----------- #
 
-async def create_on_duty_request(student_id: str, reason: str, url: str, from_date: datetime, to_date: datetime, db: AsyncSession):
+async def create_on_duty_request(student_id: str, onduty_request: OndutyRequestBase ,db: AsyncSession):
     # Fetch student with class and advisor info
     result = await db.execute(
         select(Student)
@@ -218,10 +219,7 @@ async def create_on_duty_request(student_id: str, reason: str, url: str, from_da
 
     # Create on duty request
     on_duty_request = OnDutyRequest(
-        reason=reason,
-        url=url,
-        from_date=from_date,
-        to_date=to_date,
+        **onduty_request.model_dump(),
         student_id=student_id,
         created_on=datetime.now()
     )

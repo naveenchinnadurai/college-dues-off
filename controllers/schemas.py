@@ -47,6 +47,18 @@ class SubjectCreate(BaseModel):
 
 class SubjectResponse(SubjectCreate):
     id: UUID
+
+class ClassCreate(BaseModel):
+    class_id: str
+    semester: int
+    advisor: UUID  # Staff ID
+    year: int
+    batch: str
+
+class ClassResponse(ClassCreate):
+    id: UUID
+
+    model_config = ConfigDict(from_attributes=True)
     
 class DepartmentCreate(BaseModel):
     name: str
@@ -92,5 +104,25 @@ class NoDuesRequestResponse(BaseModel):
     status: RequestStatus
     created_on: Optional[datetime] = None
     updated_on: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
+    
+# ---------------- OndutyRequest Schemas ----------------
+
+class OndutyRequestBase(BaseModel):
+    reason: str
+    url: str
+    from_date: datetime
+    to_date: datetime
+    
+# ---------------- Announcement Schemas ----------------
+
+class AnnouncementCreate(BaseModel):
+    title: str
+    content: str
+
+class AnnouncementResponse(AnnouncementCreate):
+    id: UUID
+    created_on: datetime
 
     model_config = ConfigDict(from_attributes=True)
