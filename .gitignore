@@ -117,6 +117,9 @@ uv.lock
 .pdm-python
 .pdm-build/
 
+.vscode/
+#   VS Code settings are stored in .vscode/settings.json, but it is recommended to not include it
+
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/
 
