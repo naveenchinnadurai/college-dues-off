@@ -10,10 +10,10 @@ import enum
 import uuid
 import pytz
 
-def get_ist_time():
-    utc_now = datetime.utcnow()
-    ist_now = pytz.utc.localize(utc_now).astimezone(pytz.timezone("Asia/Kolkata"))
-    return ist_now
+class AttendanceStatus(enum.Enum):
+    PRESENT = "Present"
+    ABSENT = "Absent"
+    EXCUSED = "Excused"
 
 # Enums
 class RequestStatus(enum.Enum):
@@ -45,6 +45,7 @@ class Student(Base):
     onduty_requests = relationship("OnDutyRequest", back_populates="student", cascade="all, delete-orphan")
     no_dues_requests = relationship("NoDuesRequest", back_populates="student", cascade="all, delete-orphan")
     internal_marks = relationship("InternalMark", back_populates="student", cascade="all, delete-orphan")
+    attendance_records = relationship("Attendance", back_populates="student", cascade="all, delete-orphan")
 
 class Staff(Base):
     __tablename__ = "staffs"
@@ -123,7 +124,7 @@ class NoDuesRequest(Base):
     subject_id = Column(UUID(as_uuid=True), ForeignKey("subjects.id"))
     staff_id = Column(UUID(as_uuid=True), ForeignKey("staffs.id"))
     message = Column(Text)
-    created_on = Column(DateTime(timezone=True), default=datetime.utcnow)
+    created_on = Column(DateTime(timezone=True), default=datetime.now())
     
     student = relationship("Student", back_populates="no_dues_requests")
     subject = relationship("Subject", back_populates="no_dues_requests")
@@ -136,7 +137,7 @@ class BonafideRequest(Base):
     purpose = Column(String)
     message = Column(String)
     student_id = Column(String, ForeignKey("students.reg_no"))
-    created_on = Column(DateTime, default=datetime.utcnow)
+    created_on = Column(DateTime, default=datetime.now())
     
     student = relationship("Student", back_populates="bonafide_requests")
     advisor_approval = relationship("AdvisorBonafideApproval", back_populates="bonafide_request", cascade="all, delete-orphan")
@@ -151,7 +152,7 @@ class OnDutyRequest(Base):
     from_date = Column(Date)
     to_date = Column(Date)
     student_id = Column(String, ForeignKey("students.reg_no"))
-    created_on = Column(DateTime, default=datetime.utcnow)
+    created_on = Column(DateTime, default=datetime.now())
     
     student = relationship("Student", back_populates="onduty_requests")
     advisor_approval = relationship("AdvisorOnDutyApproval", back_populates="onduty_request", cascade="all, delete-orphan")
@@ -163,7 +164,7 @@ class AdvisorOnDutyApproval(Base):
     onduty_id = Column(UUID(as_uuid=True), ForeignKey("onduty_requests.id"), primary_key=True)
     staff_id = Column(UUID(as_uuid=True), ForeignKey("staffs.id"), primary_key=True)
     status = Column(Enum(RequestStatus),default=RequestStatus.Pending)
-    updated_on = Column(DateTime, default=datetime.utcnow)
+    updated_on = Column(DateTime, default=datetime.now())
     message = Column(Text)
 
     onduty_request = relationship("OnDutyRequest", back_populates="advisor_approval")
@@ -184,7 +185,7 @@ class HODOnDutyApproval(Base):
     onduty_id = Column(UUID(as_uuid=True), ForeignKey("onduty_requests.id"), primary_key=True)
     staff_id = Column(UUID(as_uuid=True), ForeignKey("staffs.id"), primary_key=True)
     status = Column(Enum(RequestStatus),default=RequestStatus.Pending)
-    updated_on = Column(DateTime, default=datetime.utcnow)
+    updated_on = Column(DateTime, default=datetime.now())
     message = Column(Text)
     
     onduty_request = relationship("OnDutyRequest", back_populates="hod_approval")
@@ -196,7 +197,7 @@ class HODBonafideApproval(Base):
     staff_id = Column(UUID(as_uuid=True), ForeignKey("staffs.id"), primary_key=True)
     status = Column(Enum(RequestStatus),default=RequestStatus.Pending)
     message = Column(Text)
-    updated_on = Column(DateTime, default=datetime.utcnow)
+    updated_on = Column(DateTime, default=datetime.now())
     
     
     bonafide_request = relationship("BonafideRequest", back_populates="hod_approval")
@@ -224,6 +225,20 @@ class Announcement(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     title = Column(String)
     content = Column(String)
-    created_on = Column(DateTime(timezone=True), default=get_ist_time())
+    created_on = Column(DateTime(timezone=True), default=datetime.now())
     author = Column(UUID(as_uuid=True), ForeignKey("staffs.id"))
     staff = relationship("Staff", backref="announcements")
+
+class Attendance(Base):
+    __tablename__ = "attendance"
+
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
+    
+    class_id = Column(String, ForeignKey("classes.id"), nullable=False)
+    student_id = Column(String, ForeignKey("students.reg_no", ondelete="CASCADE"), nullable=False)
+    date = Column(Date, nullable=False)
+    status = Column(Enum(AttendanceStatus), nullable=False)
+    semester = Column(Integer, nullable=False)
+
+    student = relationship("Student", back_populates="attendance_records")
+    class_ = relationship("Class", backref="attendance_records")

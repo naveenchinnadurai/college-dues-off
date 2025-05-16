@@ -1,8 +1,8 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
-from fastapi import Depends
-from db.database import get_db  # should return AsyncSession
-from db.models import Staff, Student
+from fastapi import Depends, HTTPException
+from db.database import get_db, AsyncSession  # should return AsyncSession
+from db.models import Staff, Student, Attendance ,AttendanceStatus
 from utils.auth_handler import signJWT
 from utils.password_utils import verify_password
 from fastapi.responses import JSONResponse
@@ -87,6 +87,21 @@ async def studentLogin(
                     "data": None
                 }
             )
+        attendance_result = await db.execute(
+        select(Attendance).filter(
+            Attendance.student_id == user.reg_no,
+            Attendance.semester == user.class_.semester
+            )
+        )
+        attendance_records = attendance_result.scalars().all()
+        
+        if not attendance_records:
+            raise HTTPException(status_code=404, detail="Attendance not found")
+
+        total_classes = len(attendance_records)
+        attended_classes = sum(1 for a in attendance_records if a.status == AttendanceStatus.PRESENT)
+
+        attendance_percentage = (attended_classes / total_classes) * 100 if total_classes > 0 else 0
 
         token = signJWT(user.email)
         user_data = jsonable_encoder(user)
@@ -99,6 +114,7 @@ async def studentLogin(
                 "message": "Login successful",
                 "data": {
                     "user": user_data,
+                    "attendance_percentage": attendance_percentage,
                     "token": token["access token"]
                 }
             }

@@ -3,9 +3,11 @@ from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
-from db.models import Announcement, Student, Class, Subject
+from db.models import Announcement, Student, Class, Subject, Attendance
 from controllers.schemas import StudentCreate, StudentResponse, ClassCreate, ClassResponse, SubjectCreate, SubjectResponse
 from controllers.schemas import AnnouncementResponse
+from sqlalchemy.orm import selectinload
+from sqlalchemy import select
 from typing import Annotated
 from db.database import get_db
 from utils.password_utils import hash_password
@@ -88,3 +90,14 @@ async def create_subject(
             status_code=201
         )
 
+# ----------- Get Attendance ----------- #
+async def get_attendance(student_id: str, db: db_type):
+    result = await db.execute(
+        select(Attendance)
+        .filter(Attendance.student_id == student_id)
+        .options(selectinload(Attendance.class_))
+    )
+    attendance = result.scalars().all()
+    if not attendance:
+        raise HTTPException(status_code=404, detail="Attendance not found")
+    return JSONResponse(content=jsonable_encoder([Attendance.model_validate(a) for a in attendance]))

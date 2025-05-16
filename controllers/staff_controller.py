@@ -5,9 +5,9 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from typing import List, Annotated
 from .schemas import StaffCreate, StaffResponse , NoDuesRequestResponse, SubjectCreate, SubjectResponse, SubjectAssignmentRequest
-from db.models import Staff, NoDuesRequest, ClassStaffSubject, Subject, Class, Announcement
-from .schemas import AnnouncementCreate, AnnouncementResponse
-from db.database import get_db, engine
+from db.models import Staff, NoDuesRequest,OnDutyRequest,AdvisorOnDutyApproval,HODOnDutyApproval,BonafideRequest,AdvisorBonafideApproval,HODBonafideApproval, ClassStaffSubject, Subject, Class, Announcement, Attendance
+from .schemas import AnnouncementCreate, AnnouncementResponse, Attendance
+from db.database import get_db
 from utils.password_utils import hash_password
 from uuid import UUID
 from io import BytesIO
@@ -157,7 +157,96 @@ async def manage_no_dues_requests(
         return JSONResponse(
             content=jsonable_encoder(NoDuesRequestResponse.model_validate(request))
         )
-    
+
+async def view_on_duty_requests(id: UUID, db: db_type):
+    async with db as session:
+        staff = await session.execute(select(Staff).filter(Staff.id == id))
+        staff = staff.scalars().first()
+        if not staff:
+            raise HTTPException(status_code=404, detail="Staff not found")
+        result_advisor = await session.execute(
+            select(AdvisorOnDutyApproval)
+            .filter(AdvisorOnDutyApproval.staff_id == staff.id)
+        ).scalars().all()
+        result_hod = await session.execute(
+            select(HODOnDutyApproval)
+            .filter(HODOnDutyApproval.staff_id == staff.id)
+        ).scalars().all()
+        
+        if result_advisor:
+            approvals = result_advisor
+        elif result_hod:
+            approvals = result_hod
+        else:
+            raise HTTPException(status_code=404, detail="No requests found")
+        
+        on_duty_requests_hod = await session.execute(
+            select(OnDutyRequest)
+            .join(HODOnDutyApproval, OnDutyRequest.id == HODOnDutyApproval.onduty_id)
+            .filter(HODOnDutyApproval.staff_id == staff.id)
+        ).scalars().all()
+        on_duty_requests_advisor = await session.execute(
+            select(OnDutyRequest)
+            .join(AdvisorOnDutyApproval, OnDutyRequest.id == AdvisorOnDutyApproval.onduty_id)
+            .filter(AdvisorOnDutyApproval.staff_id == staff.id)
+        ).scalars().all()
+        if on_duty_requests_hod:
+            on_duty_requests = on_duty_requests_hod
+        elif on_duty_requests_advisor:  
+            on_duty_requests = on_duty_requests_advisor
+        else:
+            raise HTTPException(status_code=404, detail="No requests found")
+        return JSONResponse(
+            content={
+                    "approvals": jsonable_encoder([ApprovalResponse.model_validate(approval) for approval in approvals]),
+                     "requests": jsonable_encoder([OnDutyRequestResponse.model_validate(request) for request in on_duty_requests])
+            }
+        )
+async def view_Bonafide_requests(id: UUID, db: db_type):
+    async with db as session:
+        staff = await session.execute(select(Staff).filter(Staff.id == id))
+        staff = staff.scalars().first()
+        if not staff:
+            raise HTTPException(status_code=404, detail="Staff not found")
+        result_advisor = await session.execute(
+            select(AdvisorBonafideApproval)
+            .filter(AdvisorBonafideApproval.staff_id == staff.id)
+        ).scalars().all()
+        result_hod = await session.execute(
+            select(HODBonafideApproval)
+            .filter(HODBonafideApproval.staff_id == staff.id)
+        ).scalars().all()
+
+        if result_advisor:
+            approvals = result_advisor
+        elif result_hod:
+            approvals = result_hod
+        else:
+            raise HTTPException(status_code=404, detail="No requests found")
+
+        bonafide_requests_advisor = await session.execute(
+            select(BonafideRequest)
+            .join(AdvisorBonafideApproval, BonafideRequest.id == AdvisorBonafideApproval.bonafide_id)
+            .filter(AdvisorBonafideApproval.staff_id == staff.id)
+        ).scalars().all()
+        bonafide_requests_hod = await session.execute(
+            select(BonafideRequest)
+            .join(HODBonafideApproval, BonafideRequest.id == HODBonafideApproval.bonafide_id)
+            .filter(HODBonafideApproval.staff_id == staff.id)
+        ).scalars().all()
+        if bonafide_requests_hod:
+            bonafide_requests = bonafide_requests_hod
+        elif bonafide_requests_advisor:
+            bonafide_requests = bonafide_requests_advisor
+        else:
+            raise HTTPException(status_code=404, detail="No requests found")
+        return JSONResponse(
+            content={
+                    "approvals": jsonable_encoder([ApprovalResponse.model_validate(approval) for approval in approvals]),
+                     "requests": jsonable_encoder([BonafideRequestResponse.model_validate(request) for request in bonafide_requests])
+            }
+        )
+
 async def create_announcement(
     id: UUID, 
     announcement_data: AnnouncementCreate,
@@ -176,6 +265,32 @@ async def create_announcement(
             content=jsonable_encoder(AnnouncementResponse.model_validate(announcement))
         )
         
+# -------------------- Attendance ----------------
+async def Create_Attendance(
+    id: str,
+    class_id: str,
+    date: str,
+    attendance_data: List[Attendance],
+    db: db_type
+):
+    async with db as session:
+        staff = await session.execute(select(Staff).filter(Staff.id == id))
+        staff = staff.scalars().first()
+        if not staff:
+            raise HTTPException(status_code=404, detail="Staff not found")
+        
+        attendance = Attendance(
+            class_id=class_id,
+            date=date,
+            attendance_data=attendance_data
+        )
+        session.add(attendance)
+        await session.commit()
+        return JSONResponse(
+            content=jsonable_encoder(attendance)
+        )
+
+        
 # async def get_staff_by_id(id: str, db: db_type):
 #     with db as session:
 #         staff = session.query(Staff).filter(Staff.email == id).first()
@@ -191,7 +306,7 @@ async def create_announcement(
 #         staff = session.query(Staff).filter(Staff.email == id).first()
 #         if not staff:
 #             raise HTTPException(status_code=404, detail="Staff not found")
-        
+
 #         for key, value in staff_data.dict().items():
 #             setattr(staff, key, value)
         
@@ -215,3 +330,4 @@ async def create_announcement(
 #             content={"message": "Staff deleted successfully"},
 #             status_code=200
 #         )
+

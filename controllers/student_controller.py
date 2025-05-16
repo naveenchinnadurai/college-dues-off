@@ -9,7 +9,8 @@ from .schemas import (
     StudentCreate,
     StudentResponse,
     NoDuesRequestResponse,
-    OndutyRequestBase
+    OndutyRequestBase,
+    Attendance
 )
 from db.models import Student, NoDuesRequest, ClassStaffSubject, BonafideRequest, AdvisorBonafideApproval, HODBonafideApproval, RequestStatus, OnDutyRequest, AdvisorOnDutyApproval, HODOnDutyApproval
 from db.database import get_db
@@ -273,8 +274,6 @@ async def generate_hod_approval_for_on_duty(on_duty_id: UUID, db: AsyncSession):
         onduty_id=on_duty_id,
         staff_id=hod_id,
         status=RequestStatus.Pending,
-        updated_on=datetime.now(),
-        message=""
     )
     db.add(hod_approval)
     await db.commit()
@@ -283,10 +282,10 @@ async def generate_hod_approval_for_on_duty(on_duty_id: UUID, db: AsyncSession):
 
 # ----------- Get On Duty Approval Status ----------- #
 
-async def get_on_duty_approval_status(on_duty_id: UUID, db: AsyncSession):
+async def get_on_duty_approval_status(student_id: str, db: AsyncSession):
     result = await db.execute(
         select(OnDutyRequest)
-        .filter(OnDutyRequest.id == on_duty_id)
+        .filter(OnDutyRequest.student_id == student_id)
         .options(
             selectinload(OnDutyRequest.advisor_approval),
             selectinload(OnDutyRequest.hod_approval)
@@ -300,6 +299,30 @@ async def get_on_duty_approval_status(on_duty_id: UUID, db: AsyncSession):
     hod = on_duty_request.hod_approval[0] if on_duty_request.hod_approval else None
 
     return {
+        "onduty_request": on_duty_request,
+        "advisor_status": advisor.status if advisor else "Not created",
+        "hod_status": hod.status if hod else "Not created"
+    }
+#
+
+async def get_bonafide_approval_status(student_id:str, db: AsyncSession):
+    result = await db.execute(
+        select(BonafideRequest)
+        .filter(BonafideRequest.student_id == student_id)
+        .options(
+            selectinload(BonafideRequest.advisor_approval),
+            selectinload(BonafideRequest.hod_approval)
+        )
+    )
+    bonafide = result.scalars().first()
+    if not bonafide:
+        raise HTTPException(status_code=404, detail="Bonafide request not found")
+
+    advisor = bonafide.advisor_approval[0] if bonafide.advisor_approval else None
+    hod = bonafide.hod_approval[0] if bonafide.hod_approval else None
+
+    return {
+        "bonafide_request": bonafide,
         "advisor_status": advisor.status if advisor else "Not created",
         "hod_status": hod.status if hod else "Not created"
     }

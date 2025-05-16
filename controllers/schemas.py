@@ -11,7 +11,13 @@ class RequestStatus(str, Enum):
     Pending = "Pending"
     Approved = "Approved"
     Rejected = "Rejected"
-    
+
+class AttendanceStatus(Enum):
+    PRESENT = "Present"
+    ABSENT = "Absent"
+    EXCUSED = "Excused"
+
+
     
 # ---------------- Staff Schemas ----------------
 class StaffCreate(BaseModel):
@@ -126,3 +132,9 @@ class AnnouncementResponse(AnnouncementCreate):
     created_on: datetime
 
     model_config = ConfigDict(from_attributes=True)
+    
+# ---------------- Attendance Schemas ----------------
+class Attendance(BaseModel):
+    student_id: str
+    status: AttendanceStatus
+    date: datetime
