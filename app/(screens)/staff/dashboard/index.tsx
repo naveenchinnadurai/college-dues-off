@@ -1,7 +1,9 @@
-import { View, Text, ScrollView, TouchableOpacity, SafeAreaView } from "react-native"
+import { View, Text, ScrollView, TouchableOpacity, SafeAreaView, Modal } from "react-native"
 import { StatusBar } from "expo-status-bar"
 import { useRouter } from "expo-router"
-import { Book, Users, ChevronRight, Calendar, BarChart3 } from "lucide-react-native"
+import { Book, Users, ChevronRight, Calendar, BarChart3, Plus } from "lucide-react-native"
+import Announcements from "@/component/announcements"
+import { useState } from "react"
 
 const subjects = [
   { id: "1", code: "CS101", name: "Introduction to Programming", students: 45, pendingMarks: true },
@@ -37,81 +39,81 @@ export default function StaffDashboardScreen() {
       <ScrollView className="flex-1 px-4 pt-4">
         <View className="flex-row justify-between items-center mb-4">
           <Text className="text-xl font-semibold text-gray-800">Your Subjects</Text>
-          <TouchableOpacity className="py-1">
-            <Text className="text-indigo-600 font-medium">View All</Text>
-          </TouchableOpacity>
         </View>
 
-        {subjects.map((subject) => (
-          <TouchableOpacity
-            key={subject.id}
-            className={`mb-3 p-4 rounded-xl border ${subject.pendingMarks ? "border-amber-200 bg-amber-50" : "border-gray-200 bg-gray-50"
-              }`}
-            onPress={() => navigateToSubjectMarks(subject.id, subject.name)}
-          >
-            <View className="flex-row items-center justify-between">
-              <View className="flex-row items-center">
-                <View className="w-10 h-10 rounded-full bg-indigo-100 items-center justify-center">
-                  <Book size={20} color="#4f46e5" />
-                </View>
-                <View className="ml-3">
-                  <Text className="font-semibold text-gray-800">{subject.name}</Text>
-                  <Text className="text-gray-500 text-sm">{subject.code}</Text>
-                </View>
-              </View>
-              <ChevronRight size={20} color="#6b7280" />
-            </View>
-            <View className="flex-row justify-between mt-3">
-              <View className="flex-row items-center">
-                <Users size={16} color="#6b7280" />
-                <Text className="text-gray-600 text-sm ml-1">{subject.students} students</Text>
-              </View>
-              {subject.pendingMarks && (
-                <View className="px-2 py-1 bg-amber-100 rounded-md">
-                  <Text className="text-amber-800 text-xs font-medium">Marks Pending</Text>
-                </View>
-              )}
-            </View>
-          </TouchableOpacity>
-        ))}
-
-        {advisorFor && (
-          <>
-            <View className="flex-row justify-between items-center mt-6 mb-4">
-              <Text className="text-xl font-semibold text-gray-800">Class Advisor</Text>
-              <TouchableOpacity className="py-1">
-                <Text className="text-indigo-600 font-medium">View All</Text>
-              </TouchableOpacity>
-            </View>
-
+        {
+          subjects.map((subject) => (
             <TouchableOpacity
-              className="mb-3 p-4 rounded-xl border border-gray-200 bg-gray-50"
-              onPress={() => navigateToClassAttendance(advisorFor.id, advisorFor.name)}
+              key={subject.id}
+              className={`mb-3 p-4 rounded-xl border ${subject.pendingMarks ? "border-amber-200 bg-amber-50" : "border-gray-200 bg-gray-50"
+                }`}
+              onPress={() => navigateToSubjectMarks(subject.id, subject.name)}
             >
               <View className="flex-row items-center justify-between">
                 <View className="flex-row items-center">
-                  <View className="w-10 h-10 rounded-full bg-green-100 items-center justify-center">
-                    <Users size={20} color="#10b981" />
+                  <View className="w-10 h-10 rounded-full bg-indigo-100 items-center justify-center">
+                    <Book size={20} color="#4f46e5" />
                   </View>
                   <View className="ml-3">
-                    <Text className="font-semibold text-gray-800">{advisorFor.name}</Text>
-                    <Text className="text-gray-500 text-sm">{advisorFor.students} students</Text>
+                    <Text className="font-semibold text-gray-800">{subject.name}</Text>
+                    <Text className="text-gray-500 text-sm">{subject.code}</Text>
                   </View>
                 </View>
                 <ChevronRight size={20} color="#6b7280" />
               </View>
               <View className="flex-row justify-between mt-3">
                 <View className="flex-row items-center">
-                  <Calendar size={16} color="#6b7280" />
-                  <Text className="text-gray-600 text-sm ml-1">Today's Attendance</Text>
+                  <Users size={16} color="#6b7280" />
+                  <Text className="text-gray-600 text-sm ml-1">{subject.students} students</Text>
                 </View>
-                <View className="px-2 py-1 bg-green-100 rounded-md">
-                  <Text className="text-green-800 text-xs font-medium">{advisorFor.attendance}% Present</Text>
-                </View>
+                {
+                  subject.pendingMarks && (
+                    <View className="px-2 py-1 bg-amber-100 rounded-md">
+                      <Text className="text-amber-800 text-xs font-medium">Marks Pending</Text>
+                    </View>
+                  )
+                }
               </View>
             </TouchableOpacity>
-          </>
-        )}
+          ))
+        }
+
+        {
+          advisorFor && (
+            <>
+              <View className="flex-row justify-between items-center mt-6 mb-4">
+                <Text className="text-xl font-semibold text-gray-800">Class Advisor</Text>
+              </View>
+
+              <TouchableOpacity
+                className="mb-3 p-4 rounded-xl border border-gray-200 bg-gray-50"
+                onPress={() => navigateToClassAttendance(advisorFor.id, advisorFor.name)}
+              >
+                <View className="flex-row items-center justify-between">
+                  <View className="flex-row items-center">
+                    <View className="w-10 h-10 rounded-full bg-green-100 items-center justify-center">
+                      <Users size={20} color="#10b981" />
+                    </View>
+                    <View className="ml-3">
+                      <Text className="font-semibold text-gray-800">{advisorFor.name}</Text>
+                      <Text className="text-gray-500 text-sm">{advisorFor.students} students</Text>
+                    </View>
+                  </View>
+                  <ChevronRight size={20} color="#6b7280" />
+                </View>
+                <View className="flex-row justify-between mt-3">
+                  <View className="flex-row items-center">
+                    <Calendar size={16} color="#6b7280" />
+                    <Text className="text-gray-600 text-sm ml-1">Today's Attendance</Text>
+                  </View>
+                  <View className="px-2 py-1 bg-green-100 rounded-md">
+                    <Text className="text-green-800 text-xs font-medium">{advisorFor.attendance}% Present</Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            </>
+          )
+        }
 
         <View className="mt-6 mb-4">
           <Text className="text-xl font-semibold text-gray-800">Quick Stats</Text>
@@ -132,6 +134,15 @@ export default function StaffDashboardScreen() {
             </View>
           </View>
         </View>
+
+        {/* Announcements */}
+        <>
+          <View className="mb-3 p-4 rounded-xl border border-gray-200 bg-gray-50" >
+            
+            <Announcements />
+          </View>
+        </>
+        
       </ScrollView>
     </SafeAreaView>
   )

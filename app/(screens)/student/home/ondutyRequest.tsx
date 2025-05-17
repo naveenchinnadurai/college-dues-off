@@ -74,6 +74,8 @@ const OnDutyRequest = () => {
             message: '',
         };
 
+        console.log(request)
+
         setHistory([request, ...history]);
 
         setNewRequest({

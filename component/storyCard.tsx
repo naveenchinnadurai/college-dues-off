@@ -77,5 +77,3 @@ const StoryCard = ({ index }: StoryCardProps) => {
 }
 
 export default StoryCard
-
-hiii

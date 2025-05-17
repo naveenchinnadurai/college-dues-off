@@ -64,8 +64,8 @@ const Index = () => {
             // })
 
             setUser({
-                    id: '612874124',
-                    name: 'Naveen Chinnadurai',
+                    id: '61232112041',
+                    name: 'Swetha Kumar',
                     email: 'dev.iamnaveen@gmail.com',
                     type: "student",
                     department: "Computer Science",

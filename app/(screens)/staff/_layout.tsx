@@ -1,6 +1,11 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Image } from 'react-native';
+import { Text } from 'react-native';
+
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 
 export default function AppLayout() {
@@ -27,13 +32,16 @@ export default function AppLayout() {
                 options={{
                     title: 'Home',
                     tabBarIcon: ({ focused }) => (
-                        <Image
-                            source={focused
-                                ? require('../../../assets/images/devAssets/activeIcons/home.png')
-                                : require('../../../assets/images/devAssets/inactiveIcons/home.png')
-                            }
-                            className='h-6 w-6'
+                        <FontAwesome5
+                            name='home'
+                            size={23}
+                            color={focused ? '#439A4C' : '#B4B2B2'}
                         />
+                    ),
+                    tabBarLabel: ({ focused }) => (
+                        <Text className={`text-sm font-bold ${focused ? 'text-[#439A4C]' : 'text-[#B4B2B2]'}`} >
+                            Home
+                        </Text>
                     )
                 }}
             />
@@ -42,13 +50,16 @@ export default function AppLayout() {
                 options={{
                     title: 'Dashboard',
                     tabBarIcon: ({ focused }) => (
-                        <Image
-                            source={focused
-                                ? require('../../../assets/images/devAssets/activeIcons/marks.png')
-                                : require('../../../assets/images/devAssets/inactiveIcons/marks.png')
-                            }
-                            className='h-6 w-6'
+                        <MaterialCommunityIcons
+                            name='chart-box-outline'
+                            size={23}
+                            color={focused ? '#439A4C' : '#B4B2B2'}
                         />
+                    ),
+                    tabBarLabel: ({ focused }) => (
+                        <Text className={`text-sm font-bold ${focused ? 'text-[#439A4C]' : 'text-[#B4B2B2]'}`} >
+                            Dashboard
+                        </Text>
                     )
                 }}
             />
@@ -57,13 +68,16 @@ export default function AppLayout() {
                 options={{
                     title: 'Notification',
                     tabBarIcon: ({ focused }) => (
-                        <Image
-                            source={focused
-                                ? require('../../../assets/images/devAssets/activeIcons/notify.png')
-                                : require('../../../assets/images/devAssets/inactiveIcons/notify.png')
-                            }
-                            className='h-6 w-6'
+                        <Ionicons
+                            name='notifications'
+                            size={23}
+                            color={focused ? '#439A4C' : '#B4B2B2'}
                         />
+                    ),
+                    tabBarLabel: ({ focused }) => (
+                        <Text className={`text-sm font-bold ${focused ? 'text-[#439A4C]' : 'text-[#B4B2B2]'}`} >
+                            Notification
+                        </Text>
                     )
                 }}
             />
@@ -72,14 +86,17 @@ export default function AppLayout() {
                 options={{
                     title: 'Profile',
                     tabBarIcon: ({ focused }) => (
-                        <Image
-                            source={focused
-                                ? require('../../../assets/images/devAssets/activeIcons/profile.png')
-                                : require('../../../assets/images/devAssets/inactiveIcons/profile.png')
-                            }
-                            className='h-7 w-6'
+                        <FontAwesome
+                            name='user'
+                            size={23}
+                            color={focused ? '#439A4C' : '#B4B2B2'}
                         />
                     ),
+                    tabBarLabel: ({ focused }) => (
+                        <Text className={`text-sm font-bold ${focused ? 'text-[#439A4C]' : 'text-[#B4B2B2]'}`} >
+                            Profile
+                        </Text>
+                    )
                 }}
             />
         </Tabs>

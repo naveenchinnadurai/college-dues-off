@@ -26,12 +26,12 @@ const Index = () => {
     const handleLogin = async () => {
         console.log(credential); //checking log!
         setUser({
-            id: '612874124',
-            name: 'Naveen Chinnadurai',
-            email: 'dev.iamnaveen@gmail.com',
+            id: '1234567890',
+            name: 'Dr. M. Sakthivel',
+            email: 'sakthivelcsehod@sec.com',
             type: "staff",
             department: "Computer Science",
-            role: "staff"
+            role: "HOD - CSE"
         })
         router.push('/(screens)/onboarding')
         // try {

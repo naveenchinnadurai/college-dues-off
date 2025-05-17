@@ -276,7 +276,7 @@ const HomeScreen = () => {
                 {activeTab === "pending" ? (
                   <>
                     <TouchableOpacity
-                      className="border border-red-500 py-2 px-4 rounded-lg flex-row items-center"
+                      className="border border-red-500 py-2 px-4 rounded-lg flex-row items-center justify-center w-1/2"
                       onPress={() => handleReject(request)}
                     >
                       <Feather name="x" size={16} color="red" />
@@ -284,7 +284,7 @@ const HomeScreen = () => {
                     </TouchableOpacity>
 
                     <TouchableOpacity
-                      className="bg-green-600 py-2 px-4 rounded-lg flex-row items-center"
+                      className="bg-green-600 py-2 px-4 rounded-lg flex-row justify-center items-center w-1/2"
                       onPress={() => updateRequestStatus(request.id, "approved")}
                     >
                       <Feather name="check" size={16} color="white" />
