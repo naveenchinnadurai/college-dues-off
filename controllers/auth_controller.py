@@ -1,5 +1,6 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 from fastapi import Depends, HTTPException
 from db.database import get_db, AsyncSession  # should return AsyncSession
 from db.models import Staff, Student, Attendance ,AttendanceStatus
@@ -19,7 +20,6 @@ async def staffLogin(
 ):
     try:
         print(login_data.email, login_data.password)
-        # Fetch staff using async select
         stmt = select(Staff).where(Staff.email == login_data.email)
         result = await db.execute(stmt)
         user = result.scalars().first()
@@ -73,7 +73,11 @@ async def studentLogin(
     db: AsyncSession = Depends(get_db)
 ):
     try:
-        stmt = select(Student).where(Student.reg_no == login_data.regNo)
+        stmt = (
+            select(Student)
+            .where(Student.reg_no == login_data.regNo)
+            .options(selectinload(Student.class_))
+        )
         result = await db.execute(stmt)
         user = result.scalars().first()
 
@@ -87,21 +91,24 @@ async def studentLogin(
                     "data": None
                 }
             )
+
+        # Now this will work because class_ is eagerly loaded
         attendance_result = await db.execute(
-        select(Attendance).filter(
-            Attendance.student_id == user.reg_no,
-            Attendance.semester == user.class_.semester
+            select(Attendance).filter(
+                Attendance.student_id == user.reg_no,
+                Attendance.semester == user.class_.semester
             )
         )
         attendance_records = attendance_result.scalars().all()
-        
-        if not attendance_records:
-            raise HTTPException(status_code=404, detail="Attendance not found")
 
-        total_classes = len(attendance_records)
-        attended_classes = sum(1 for a in attendance_records if a.status == AttendanceStatus.PRESENT)
+        if attendance_records:
 
-        attendance_percentage = (attended_classes / total_classes) * 100 if total_classes > 0 else 0
+            total_classes = len(attendance_records)
+            attended_classes = sum(1 for a in attendance_records if a.status == AttendanceStatus.PRESENT)
+
+            attendance_percentage = (attended_classes / total_classes) * 100 if total_classes > 0 else 0
+        else:
+            attendance_percentage = 0
 
         token = signJWT(user.email)
         user_data = jsonable_encoder(user)

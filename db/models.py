@@ -54,7 +54,7 @@ class Staff(Base):
     name = Column(String, nullable=False)
     password = Column(String, nullable=False)
     role = Column(String)
-    # department = Column(UUID(as_uuid=True), ForeignKey("department.id"))
+    department = Column(UUID(as_uuid=True), ForeignKey("department.id"))
     class_staff_links = relationship("ClassStaffSubject", back_populates="staff", cascade="all, delete-orphan")
     subjects = association_proxy('class_staff_links', 'subject',creator=lambda subject: ClassStaffSubject(subject=subject))
     classes = association_proxy('class_staff_links', 'class_',creator=lambda class_: ClassStaffSubject(class_=class_))

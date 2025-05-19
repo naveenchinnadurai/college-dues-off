@@ -9,8 +9,7 @@ from .schemas import (
     StudentCreate,
     StudentResponse,
     NoDuesRequestResponse,
-    OndutyRequestBase,
-    Attendance
+    OnDutyRequestBase
 )
 from db.models import Student, NoDuesRequest, ClassStaffSubject, BonafideRequest, AdvisorBonafideApproval, HODBonafideApproval, RequestStatus, OnDutyRequest, AdvisorOnDutyApproval, HODOnDutyApproval
 from db.database import get_db
@@ -206,7 +205,7 @@ async def get_bonafide_approval_status(bonafide_id: UUID, db: AsyncSession):
 
 # ----------- Create On Duty Request ----------- #
 
-async def create_on_duty_request(student_id: str, onduty_request: OndutyRequestBase ,db: AsyncSession):
+async def create_on_duty_request(student_id: str, onduty_request: OnDutyRequestBase ,db: AsyncSession):
     # Fetch student with class and advisor info
     result = await db.execute(
         select(Student)

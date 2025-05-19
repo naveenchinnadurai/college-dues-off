@@ -1,20 +1,9 @@
 from fastapi import APIRouter, HTTPException, Depends
-from controllers.staff_controller import create_staff, get_all_staff, view_no_dues_requests, manage_no_dues_requests, insert_staff_data, create_announcement #,get_staff_by_id, update_staff, delete_staff
+from controllers.staff_controller import get_all_staff, view_no_dues_requests, manage_no_dues_requests, create_announcement #,get_staff_by_id, update_staff, delete_staff
 from utils.auth_bearer import JWTBearer
 
-staff_route = APIRouter(prefix="/staff", tags=["staff"]) # ,dependencies=[Depends(JWTBearer())],
-
-staff_route.add_api_route(
-    path="/create",
-    endpoint= create_staff,
-    methods=["POST"]
-)
-
-staff_route.add_api_route(
-    path="/create_staffs",
-    endpoint= insert_staff_data,
-    methods=["POST"]
-)
+# staff_route = APIRouter(prefix="/staff", dependencies=[Depends(JWTBearer())], tags=["staff"])  # JWTBearer is a dependency that checks for a valid JWT token in the request headers
+staff_route = APIRouter(prefix="/staff", tags=["staff"])
 
 staff_route.add_api_route(
     path="/",

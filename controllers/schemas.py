@@ -45,6 +45,19 @@ class NoDuesRequestResponse(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
     
+# ---------------- Department Schemas ----------------
+
+class DepartmentBase(BaseModel):
+    name: str
+    HOD: UUID  # Staff ID
+
+class DepartmentResponse(DepartmentBase):
+    id: UUID
+    
+    model_config = {
+        "from_attributes": True  # This replaces orm_mode=True
+    }
+    
 # ---------------- Class Staff Subject Schemas ----------------
 
 class SubjectCreate(BaseModel):
@@ -55,14 +68,14 @@ class SubjectResponse(SubjectCreate):
     id: UUID
 
 class ClassCreate(BaseModel):
-    class_id: str
-    semester: int
+    id: str
     advisor: UUID  # Staff ID
-    year: int
+    semester: int
+    department: UUID  # Department ID
+    year: str
     batch: str
 
 class ClassResponse(ClassCreate):
-    id: UUID
 
     model_config = ConfigDict(from_attributes=True)
     
@@ -72,12 +85,13 @@ class DepartmentCreate(BaseModel):
 
 class DepartmentResponse(DepartmentCreate):
     id: UUID
+    
+    model_config = ConfigDict(from_attributes=True)
 
 class SubjectAssignmentRequest(BaseModel):
     class_id: str
     subject_id: UUID
     staff_id: UUID
-
 
 
 
@@ -87,8 +101,8 @@ class StudentBase(BaseModel):
     reg_no: str
     roll_no: str
     name: str
-    email: Optional[EmailStr]
-    class_id: Optional[str]
+    email: Optional[EmailStr] = None
+    class_id: Optional[str] = None
 
 class StudentCreate(StudentBase):
     password: str
@@ -113,14 +127,58 @@ class NoDuesRequestResponse(BaseModel):
 
     model_config = ConfigDict(from_attributes=True)
     
-# ---------------- OndutyRequest Schemas ----------------
+# ---------------- OnDutyRequest Schemas ----------------
 
-class OndutyRequestBase(BaseModel):
+class OnDutyRequestBase(BaseModel):
+    student_id: str
+    reason: str
+    url: str
+    from_date: datetime
+    to_date: datetime
+
+class OnDutyRequestResponse(OnDutyRequestBase):
+    id: UUID
+    status: RequestStatus
+    created_on: Optional[datetime] = None
+    updated_on: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
+    
+# ---------------- Bonafide Request Schemas ----------------
+class BonafideRequestBase(BaseModel):
     reason: str
     url: str
     from_date: datetime
     to_date: datetime
     
+class BonafideRequestResponse(BonafideRequestBase):
+    id: UUID
+    student_id: str
+    status: RequestStatus
+    created_on: Optional[datetime] = None
+    updated_on: Optional[datetime] = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+# ---------------- Approval Schemas ----------------
+class ApprovalBase(BaseModel):
+    staff_id: UUID
+    request_id: UUID
+    status: RequestStatus
+    message: Optional[str] = None
+    created_on: Optional[datetime] = None
+
+class ApprovalResponse(ApprovalBase):
+    id: UUID
+    request_id: UUID
+    staff_id: UUID
+    status: RequestStatus
+    message: Optional[str] = None
+    created_on: Optional[datetime] = None
+    updated_on: Optional[datetime] = None
+    
+    model_config = ConfigDict(from_attributes=True)
+
 # ---------------- Announcement Schemas ----------------
 
 class AnnouncementCreate(BaseModel):

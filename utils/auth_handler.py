@@ -24,14 +24,14 @@ def token_response(token: str):
 def signJWT(userID: str)-> Dict[str,str]:
     payload = {
         "UserID": userID,
-        "expiry":time.time() + 600 #seconds
+        "expiry":time.time() + 1800 #seconds
     }
     try:
         token = jwt.encode(payload, JWT_SECRET, JWT_ALGORITHM)
         return token_response(token)
     except Exception as e:
-        raise ValueError(f"Error generating token: {str}")
-    
+        raise ValueError(f"Error generating token: {str(e)}")
+
 
 def decodeJWT(token: str):
     try:
